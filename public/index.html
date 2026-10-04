@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杜思远 | 游戏产品经理作品集</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<nav class="topnav">
+  <div class="topnav__brand">XIV <span>/ 杜思远</span></div>
+  <div class="topnav__links">
+    <a href="index.html" class="active">首页</a>
+    <a href="project1.html">残墟巡界</a>
+    <a href="project2.html">浮岛工坊</a>
+    <a href="art.html">美术能力</a>
+    <a href="contact.html">联系方式</a>
+  </div>
+</nav>
+
+<main class="main">
+  <section class="hero">
+    <div class="hero__eyebrow">GAME PRODUCT MANAGER</div>
+    <h1 class="hero__title">你好，我是 <span class="accent">杜思远</span></h1>
+    <p class="hero__pos">游戏产品应届生｜擅长美术资产管控、场景落地，熟悉 Blender 美术生产管线</p>
+    <div class="hero__intro">
+      关注单机向 / 独立游戏方向，对末世、建造、场景叙事类题材有深入研究。具备 Blender 建模、场景原画、前端开发能力，能和美术、技术团队高效同频沟通。有 AI 工具从 0 到 1 落地经验。
+    </div>
+    <div class="skills">
+      <span>3D 建模</span>
+      <span>场景原画</span>
+      <span>产品规划</span>
+      <span>竞品分析</span>
+      <span>用户研究</span>
+      <span>Blender 管线</span>
+      <span>前端开发</span>
+      <span>AI Agent 产品</span>
+    </div>
+  </section>
+
+  <!-- 项目预览 -->
+  <section class="project-preview" data-reveal>
+    <div class="preview-header">
+      <h2 class="preview-title">项目预览</h2>
+      <p class="preview-sub">两个游戏产品分析案例，从需求梳理到上线全链路拆解</p>
+    </div>
+    <div class="preview-grid">
+      <a href="project1.html" class="preview-card" data-reveal-delay>
+        <div class="preview-thumb">
+          <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=post%20apocalyptic%20ruined%20city%20exploration%20game%20concept%20art%2C%20dark%20atmosphere%2C%20abandoned%20skyscrapers%2C%20moody%20cinematic%20lighting%2C%20overgrown%20vegetation%2C%20detail&image_size=landscape_16_9" alt="残墟巡界" loading="lazy">
+          <div class="preview-overlay">
+            <span class="preview-tag">核心项目 · 全链路拆解</span>
+          </div>
+        </div>
+        <div class="preview-body">
+          <h3 class="preview-name">《残墟巡界》</h3>
+          <p class="preview-desc">末世废墟都市探索 + 轻度战斗 · PC 买断单机 · 场景叙事驱动</p>
+          <div class="preview-meta">
+            <span>需求梳理</span><span>PRD</span><span>竞品分析</span><span>上线指标</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="project2.html" class="preview-card" data-reveal-delay>
+        <div class="preview-thumb">
+          <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cozy%20floating%20island%20building%20game%20concept%20art%2C%20colorful%20low%20poly%20style%2C%20relaxing%20atmosphere%2C%20cute%20buildings%20on%20floating%20islands%20in%20the%20sky%2C%20stylized%203d&image_size=landscape_16_9" alt="浮岛工坊" loading="lazy">
+          <div class="preview-overlay">
+            <span class="preview-tag">轻量概念 · 原型 + 商业化</span>
+          </div>
+        </div>
+        <div class="preview-body">
+          <h3 class="preview-name">《浮岛工坊》</h3>
+          <p class="preview-desc">休闲建造 + 浮空岛场景设计 · 移动端 F2P · 长线运营</p>
+          <div class="preview-meta">
+            <span>版本规划</span><span>核心循环</span><span>商业化</span><span>美术管线</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <div style="text-align:center;margin-top:40px">
+    <a href="project1.html" class="btn btn--primary">查看项目分析 →</a>
+    <a href="contact.html" class="btn btn--ghost" style="margin-left:12px">联系方式</a>
+  </div>
+</main>
+
+<div class="pager">
+  <button class="pager__btn" disabled>← 首页</button>
+  <div class="pager__indicator"><span class="current">1</span> / 5 · 首页</div>
+  <a href="project1.html" class="pager__btn">残墟巡界 →</a>
+</div>
+
+<footer class="footer">
+  <p>© 2026 杜思远 · XIV · 游戏产品经理</p>
+</footer>
+<script src="animations.js"></script>
+<script src="background.js"></script>
+</body>
+</html>

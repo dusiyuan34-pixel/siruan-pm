@@ -1,0 +1,709 @@
+﻿﻿﻿﻿﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案例分析｜《残墟巡界》 | 杜思远作品集</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .pm-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px; }
+  .pm-table th, .pm-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .pm-table th { background: var(--surface); color: var(--text); font-weight: 600; font-size: 13px; letter-spacing: .04em; }
+  .pm-table td:first-child { font-weight: 600; color: var(--text); }
+  .pm-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .pm-table .row-hl { color: var(--accent); }
+  .pm-table .row-warn { color: var(--danger); }
+  .code-block {
+    background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 20px 24px; margin-top: 16px; font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-size: 13px; line-height: 1.9; color: var(--text-soft); white-space: pre; overflow-x: auto;
+  }
+  .quote-block {
+    border-left: 3px solid var(--accent); padding: 16px 20px; margin: 20px 0;
+    background: rgba(110,231,183,0.06); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 15px; color: var(--text); line-height: 1.8; font-style: italic;
+  }
+  .tag-why { display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(110,231,183,0.15);color:var(--accent);margin-right:8px }
+  .tag-what { display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(96,165,250,0.15);color:var(--accent-2);margin-right:8px }
+  .tag-how { display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(251,191,36,0.15);color:var(--accent-warm);margin-right:8px }
+  .tag-go { display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(248,113,113,0.15);color:var(--danger);margin-right:8px }
+  .phase-badge { display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;background:var(--surface);border:1px solid var(--border-strong);font-size:14px;font-weight:600;color:var(--accent);margin-bottom:24px }
+  .system-row { display:grid;grid-template-columns:80px 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--border); }
+  .system-row:last-child { border-bottom:none; }
+  .system-row .sys-code { font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:15px;font-weight:700 }
+  .system-row h4 { font-size:15px;margin-bottom:8px;color:var(--text) }
+  .system-row p { font-size:14px;color:var(--text-soft);line-height:1.7;margin:0 0 4px }
+  .system-row .boundary { color:var(--text-dim);font-size:13px;margin-top:6px }
+  .risk-item { display:grid;grid-template-columns:24px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--border); }
+  .risk-item:last-child { border-bottom:none }
+  .risk-item .risk-num { width:24px;height:24px;border-radius:50%;background:rgba(248,113,113,0.15);color:var(--danger);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center }
+  .risk-item p { font-size:14px;color:var(--text-soft);line-height:1.7;margin:0 }
+  .risk-item strong { color:var(--text) }
+  .risk-item .hedge { color:var(--accent);font-size:13px }
+  .principle-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:16px }
+  .principle-card { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;display:flex;gap:14px }
+  .principle-card .p-num { font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:20px;font-weight:700;flex-shrink:0 }
+  .principle-card h4 { font-size:15px;margin-bottom:4px;color:var(--text) }
+  .principle-card p { font-size:13px;color:var(--text-soft);margin:0;line-height:1.6 }
+  .prd-download { display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:var(--radius);background:linear-gradient(135deg,rgba(110,231,183,0.12),rgba(96,165,250,0.12));border:1px solid rgba(110,231,183,0.4);color:var(--text);font-weight:600;font-size:15px;transition:transform .15s,border-color .2s;margin-bottom:32px }
+  .prd-download:hover { transform:translateY(-2px);border-color:var(--accent) }
+  .prd-download .ver-badge { padding:2px 8px;border-radius:4px;background:var(--accent);color:#06231a;font-size:11px;font-weight:700 }
+  .scenario-row { display:grid;grid-template-columns:80px 1fr 80px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px }
+  .scenario-row:last-child { border-bottom:none }
+  .scenario-row .sc-label { color:var(--text-dim);font-size:12px;letter-spacing:.06em;text-transform:uppercase }
+  .scenario-row .sc-val { color:var(--text);font-weight:600 }
+  .scenario-row .sc-hl { color:var(--accent) }
+  .metric-delta { font-size:12px;color:var(--text-dim);margin-left:6px }
+  .budget-row { display:grid;grid-template-columns:1fr 120px;gap:16px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px }
+  .budget-row:last-child { border-bottom:none }
+  .budget-row .b-label { color:var(--text-soft) }
+  .budget-row .b-val { color:var(--accent);font-weight:600;text-align:right;font-family:'JetBrains Mono',monospace }
+  .budget-total { display:grid;grid-template-columns:1fr 120px;gap:16px;padding:16px 0;margin-top:12px;border-top:2px solid var(--border-strong);font-size:15px }
+  .budget-total .b-label { color:var(--text);font-weight:700 }
+  .budget-total .b-val { color:var(--accent);font-weight:700;text-align:right;font-family:'JetBrains Mono',monospace;font-size:18px }
+  @media (max-width:640px) {
+    .system-row { grid-template-columns:1fr }
+    .system-row .sys-code { margin-bottom:4px }
+    .scenario-row { grid-template-columns:1fr 1fr }
+    #prd-raw table { font-size:12px }
+  }
+  #prd-raw { padding:0; border:none; background:transparent; }
+  #prd-raw > * { padding: 0 28px; }
+  #prd-raw h1 { font-size:22px; color:var(--accent); padding:24px 28px 12px; border-bottom:1px solid var(--border); margin:0 }
+  #prd-raw h2 { font-size:17px; color:var(--text); margin-top:28px; margin-bottom:12px; padding-left:12px; border-left:3px solid var(--accent); line-height:1.4 }
+  #prd-raw h3 { font-size:15px; color:var(--accent-2); margin-top:20px; margin-bottom:8px }
+  #prd-raw h4 { font-size:14px; color:var(--accent-warm); margin-top:14px; margin-bottom:6px }
+  #prd-raw p { font-size:14px; color:var(--text-soft); line-height:1.8; margin:8px 0 }
+  #prd-raw strong { color:var(--text) }
+  #prd-raw em { color:var(--accent); font-style:normal }
+  #prd-raw blockquote { border-left:3px solid var(--accent); padding:10px 18px; margin:14px 28px; background:rgba(110,231,183,0.06); border-radius:0 var(--radius-sm) var(--radius-sm) 0; color:var(--text-soft); font-style:italic }
+  #prd-raw ul, #prd-raw ol { padding-left:22px; color:var(--text-soft); font-size:14px; line-height:1.9; margin:8px 0 }
+  #prd-raw li { margin:3px 0 }
+  #prd-raw code { font-family:'JetBrains Mono',monospace; font-size:12.5px; background:rgba(110,231,183,0.1); color:var(--accent); padding:1px 6px; border-radius:4px }
+  #prd-raw pre { background:var(--bg-soft); border:1px solid var(--border); border-radius:var(--radius-sm); padding:18px 22px; margin:14px 28px; overflow-x:auto; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.9 }
+  #prd-raw pre code { background:none; padding:0; color:var(--text-soft) }
+  #prd-raw table { width:calc(100% - 56px); margin:14px 28px; border-collapse:collapse; font-size:13px }
+  #prd-raw th, #prd-raw td { padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); vertical-align:top }
+  #prd-raw th { background:var(--surface); color:var(--text); font-weight:600; font-size:12px; letter-spacing:.04em }
+  #prd-raw td:first-child { font-weight:600; color:var(--text) }
+  #prd-raw tr:hover td { background:rgba(255,255,255,0.02) }
+  #prd-raw hr { border:none; border-top:1px solid var(--border); margin:24px 28px }
+  #prd-raw del { color:var(--text-dim); text-decoration:line-through }
+  #prd-raw a { color:var(--accent); text-decoration:none }
+  #prd-raw a:hover { text-decoration:underline }
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<nav class="topnav">
+  <div class="topnav__brand">XIV <span>/ 杜思远</span></div>
+  <div class="topnav__links">
+    <a href="index.html">首页</a>
+    <a href="project1.html" class="active">残墟巡界</a>
+    <a href="project2.html">浮岛工坊</a>
+    <a href="art.html">美术能力</a>
+    <a href="contact.html">联系方式</a>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="page-tag" data-reveal="fade">案例分析 · 全链路拆解</div>
+  <h1 class="page-title" data-reveal="left">《残墟巡界》</h1>
+  <p class="page-subtitle">从需求梳理 → PRD → 上线，完整走完一个产品经理在小独立组里要做的事</p>
+
+  <a href="残墟巡界_PRD_v0.4.md" download class="prd-download">📄 下载完整 PRD 文档 <span class="ver-badge">v0.5</span></a>
+
+  <div class="phase-badge">阶段 0｜需求梳理</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>0.0 设计五原则（所有功能评审的最高准则）</h2>
+    <p>任何功能要进 v1.0，必须至少满足下面一条；与这五条冲突的，一票否决。</p>
+    <div class="principle-grid" data-reveal-stagger="scale">
+      <div class="principle-card"><div class="p-num">①</div><div><h4>漫步感优先</h4><p>任何需要玩家"刷"的设计都要质疑</p></div></div>
+      <div class="principle-card"><div class="p-num">②</div><div><h4>场景会说话</h4><p>不写大段对白，叙事靠环境</p></div></div>
+      <div class="principle-card"><div class="p-num">③</div><div><h4>稀缺制造恐惧</h4><p>敌人少 = 每个敌人都重要</p></div></div>
+      <div class="principle-card"><div class="p-num">④</div><div><h4>失败不惩罚探索欲</h4><p>死亡不丢线索，不强迫重复劳动</p></div></div>
+      <div class="principle-card"><div class="p-num">⑤</div><div><h4>美术服务于叙事</h4><p>每栋建筑都要有故事，不是背景板</p></div></div>
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>0.1 市场空白：末世赛道两头挤、中间空</h2>
+    <table class="pm-table">
+      <thead><tr><th>赛道定位</th><th>代表作品</th><th>Steam 口碑</th><th>问题</th></tr></thead>
+      <tbody>
+        <tr><td>手游重氪</td><td>《明日之后》</td><td>—</td><td>首月流水 20 亿，1 年内 DAU 掉 80%；资源循环成熟但被日常任务和氪金属性毁了沉浸感</td></tr>
+        <tr><td>3A 重战斗</td><td>《遗迹：灰烬重生》</td><td>75% 特别好评</td><td>首周 10w+，但美术资产成本极高导致区域重复感强、联机强制感、叙事碎片化</td></tr>
+        <tr><td>重氛围轻玩法</td><td>《幽灵线：东京》</td><td>60% 褒贬不一</td><td>都市废墟氛围感天花板，但开放世界内容空洞，跑腿任务占 70%</td></tr>
+      </tbody>
+    </table>
+    <div class="quote-block">
+      中间空档：单机买断、章节制、场景叙事驱动、轻生存、中体量（10-15 小时流程）、定价 ¥68–98。这个价位在 Steam 国区 / 主机没有头部占位。
+    </div>
+    <p style="color:var(--text-dim);font-size:13px">参照锚点：《艾迪芬奇的记忆》¥78 / 95% 好评 / 4.7 万评测 → 推算终身 ~127 万套；《看火人》¥48 / 90% / 9.7 万评测。但它们是 2016-2017 先发红利产品，2027 年赛道已拥挤，<b style="color:var(--danger)">5-8 万套才是基准线</b>。</p>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>0.2 商业目标（基于真实行业数据校准）</h2>
+    <p><b>定价锚定</b>：对标《艾迪芬奇的记忆》¥78（国区现价），避开 ¥48 以下步行模拟器红海，也不碰 ¥120+ AA 价位；首周 9 折 ¥70 冲首发。</p>
+    <p style="margin-top:16px"><b>销量三档情景</b>（基于 Steam 独立游戏真实分布反推）：</p>
+    <table class="pm-table">
+      <thead><tr><th>情景</th><th>销量</th><th>概率</th><th>依据</th></tr></thead>
+      <tbody>
+        <tr><td>悲观（破不了圈）</td><td>&lt; 5,000 套</td><td>50%</td><td>67% Steam 独立游戏终身收入 &lt; $5,000</td></tr>
+        <tr><td class="row-hl">基准（回本线）</td><td class="row-hl">5–6 万套</td><td class="row-hl">35%</td><td>愿望单 1.5w × 首周转化 20% = 3k 首周，加长尾</td></tr>
+        <tr><td>乐观（小 breakout）</td><td>15 万套+</td><td>10%</td><td>对标艾迪芬奇 127 万套（top 0.1%，不指望）</td></tr>
+        <tr><td>极端失败</td><td>&lt; 1,000 套</td><td>5%</td><td>42% Steam 游戏销量 &lt; 100 份</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>0.3 玩家痛点 → 翻译成产品需求</h2>
+    <table class="pm-table">
+      <thead><tr><th>玩家原话（推测）</th><th>翻译成产品需求</th><th>对应系统</th></tr></thead>
+      <tbody>
+        <tr><td>"生存游戏像上班打卡"</td><td class="row-hl">砍每日任务/签到/体力</td><td>§5 全局</td></tr>
+        <tr><td>"地图好看但 10 分钟没事干"</td><td class="row-hl">每区块埋主谜 + 2 可选小谜 + 3-5 残响</td><td>§5.2, §5.4</td></tr>
+        <tr><td>"怪太多打吐了"</td><td class="row-hl">敌人固定刷新，不刷怪；遭遇点 &lt; 6/章</td><td>§5.5</td></tr>
+        <tr><td>"美术一眼看到重复楼"</td><td class="row-hl">模块化资产库 + PBR 材质复用</td><td>§12</td></tr>
+        <tr><td>"死亡 = 重打 30 分钟"</td><td class="row-hl">回锚点、线索保留、材料只掉一半</td><td>§5.3</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>0.4 目标用户画像</h2>
+    <div class="mechanics" data-reveal-stagger="scale" style="grid-template-columns:1fr">
+      <div class="mech-item"><h4>🎯 主用户</h4><p>18–28 岁，男 65% / 女 35%，Steam 国区玩家，单库游戏时长 200h+，玩过《艾迪芬奇的记忆》《看火人》《最后生还者 第二部》《天国：拯救》并给出好评</p></div>
+      <div class="mech-item"><h4>⏱ 次用户</h4><p>28–35 岁时间碎片化玩家，偏好短章节叙事，不追求高强度操作</p></div>
+      <div class="mech-item"><h4 style="color:var(--danger)">🚫 反目标用户</h4><p>追求数值 Build、PVP、每日签到、社交炫耀的玩家 —— 他们不是我们的客群，不要为他们加功能</p></div>
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>0.5 产品定位（情绪锚点）</h2>
+    <div class="quote-block">
+      "一个让你愿意停下来拍照的末世城市漫步游戏。"<br>
+      所有设计决策都拿这句话当尺子：任何破坏"漫步感"的功能都砍。
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>0.5 PRD 最关键的一段 —— 不做什么</h2>
+    <p>这一段写不出来，后面所有功能讨论都会被范围蔓延拖死。变更流程：任何 Out of Scope 项要进入 v1.0，必须提交一页纸提案 + 制作人/主程/主美三方投票，任一方反对则顺延。</p>
+    <ul style="padding-left:0;margin-top:12px">
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-warn">❌</span> 不做联机 / 多人 / 合作</li>
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-warn">❌</span> 不做角色捏脸、Build、技能树</li>
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-warn">❌</span> 不做内购、皮肤、通行证</li>
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-warn">❌</span> 不做硬核生存（饥饿 / 口渴 / 体温 / 睡眠全砍）</li>
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-warn">❌</span> 不做昼夜循环、动态天气（只做固定天气演出）</li>
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-warn">❌</span> 不做开放世界大地图，做 <b class="row-hl">5 个手工打磨的章节区块</b></li>
+      <li style="padding:8px 0"><span class="row-warn">❌</span> 移动端首发（PC 优先，移动端不做）</li>
+    </ul>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>0.6 In Scope（v1.0 明确要做什么）</h2>
+    <ul style="padding-left:0;margin-top:12px">
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-hl">✅</span> 5 个手工打磨章节区块</li>
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-hl">✅</span> 6 大系统：探索 / 残响叙事 / 生存 / 解谜 / 遭遇战 / 据点</li>
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-hl">✅</span> 3 个据点（中转站公寓 / 地铁站掩体 / 天文台）</li>
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-hl">✅</span> 真结局 + 假结局（60/80 残响触发）</li>
+      <li style="padding:8px 0;border-bottom:1px solid var(--border)"><span class="row-hl">✅</span> 简中 / 英文首发；日文发售 3 个月后补丁</li>
+      <li style="padding:8px 0"><span class="row-hl">✅</span> 20 个 Steam 成就</li>
+    </ul>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>0.7 竞品深度拆解（Steam 真实数据 + 差异化定位）</h2>
+
+    <div class="system-row">
+      <div class="sys-code">3.1</div>
+      <div>
+        <h4>《遗迹：灰烬重生》Remnant: From the Ashes</h4>
+        <p><b>Steam 数据</b>：75% 特别好评 / 定价 ¥120 / 首周 10w+（Gunfire 公开数据）</p>
+        <p><b>优点</b>：Boss 战设计扎实；程序化地图重玩性</p>
+        <p><b>缺点（我们要利用）</b>：美术资产成本极高 → 区域重复感强；联机强制感，单人体验割裂；叙事碎片化到玩家不理解</p>
+        <p><b style="color:var(--accent)">→ 我们差异化：手工关卡 + 强叙事 + 单人沉浸</b></p>
+      </div>
+    </div>
+
+    <div class="system-row">
+      <div class="sys-code">3.2</div>
+      <div>
+        <h4>《明日之后》</h4>
+        <p><b>数据</b>：上线首月流水 20 亿，1 年内 DAU 掉 80%（公开财报/第三方监测）</p>
+        <p><b>优点</b>：生存资源循环（采集→制造→防御）被验证可行</p>
+        <p><b>缺点</b>：每日任务 + 体力 = 上班感；PVP 逼氪；末世氛围被聊天频道稀释</p>
+        <p><b style="color:var(--accent)">→ 我们差异化：单机买断，零干扰</b></p>
+      </div>
+    </div>
+
+    <div class="system-row">
+      <div class="sys-code">3.3</div>
+      <div>
+        <h4>《幽灵线：东京》</h4>
+        <p><b>Steam 数据</b>：60% 褒贬不一 / 定价 ¥195 / SteamDB 显示发行后口碑快速下滑</p>
+        <p><b>优点</b>：都市废墟氛围感天花板，第一人称沉浸强</p>
+        <p><b>缺点</b>：开放世界但内容空洞，跑腿任务占 70%；战斗系统单调；地图与叙事弱关联</p>
+        <p><b style="color:var(--accent)">→ 我们差异化：手工章节 + 解谜驱动 + 战斗稀缺</b></p>
+      </div>
+    </div>
+
+    <div class="system-row">
+      <div class="sys-code">3.4</div>
+      <div>
+        <h4>锚点参照（我们的"理想型"）</h4>
+        <table class="pm-table" style="margin-top:8px;font-size:13px">
+          <thead><tr><th>作品</th><th>定价</th><th>好评率</th><th>评测数</th><th>推算终身销量</th></tr></thead>
+          <tbody>
+            <tr><td>艾迪芬奇的记忆</td><td>¥78</td><td>95%</td><td>4.7 万</td><td>~127 万套 <span class="row-warn">（top 0.1%，不指望）</span></td></tr>
+            <tr><td>看火人 Firewatch</td><td>¥48</td><td>90%</td><td>9.7 万</td><td>~260 万套（2016 先发红利）</td></tr>
+            <tr><td>史丹利的预言</td><td>¥36</td><td>96%</td><td>10 万+</td><td>~270 万套（步行模拟器长尾奇迹）</td></tr>
+          </tbody>
+        </table>
+        <p style="color:var(--text-dim);font-size:12px;margin-top:8px">这三款是 2016-2017 年先发红利产品。2027 年赛道已拥挤，<b class="row-warn">不要把 127 万套作为目标，5-8 万套才是基准线</b>。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-badge">阶段 1｜PRD 主体</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>1.1 核心玩法循环</h2>
+    <p><b>顶层循环（章节间）</b>：</p>
+    <div class="loop-card">
+      <div class="loop-flow" data-reveal-stagger="fade">
+        <div class="loop-node highlight">进入章节</div>
+        <span class="loop-arrow">→</span>
+        <div class="loop-node">探索区块</div>
+        <span class="loop-arrow">→</span>
+        <div class="loop-node">收集残响达阈值</div>
+        <span class="loop-arrow">→</span>
+        <div class="loop-node">解锁下一区块</div>
+        <span class="loop-arrow">→</span>
+        <div class="loop-node highlight">据点休整</div>
+      </div>
+    </div>
+    <p style="margin-top:16px"><b>死亡循环</b>：HP 归零 → 5s 黑屏 → 最近锚点 → 损失 50% 已采集材料 → <b style="color:var(--accent)">保留所有残响与解谜进度</b></p>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>1.2 六大系统 PRD 三件套（入口 / 规则 / 边界 case）</h2>
+
+    <div class="system-row">
+      <div class="sys-code">A</div>
+      <div>
+        <h4>探索系统</h4>
+        <p><b>规则</b>：步行 2.5 m/s，奔跑 4.5 m/s（体力条 10s / 回复 5s）；勘测器 <b style="color:var(--accent)">被动</b>：距离可互动物 &lt; 5m 时屏幕右下角轻微脉冲；<b style="color:var(--accent)">主动</b>：Q 键勘测视角，15m 内高亮 2s，冷却 30s；导航：据点地图标位置，野外 <b style="color:var(--accent)">不显示方向箭头</b></p>
+        <p class="boundary">⚠ 边界：卡墙 3s → 自动回弹；掉出地图 → 回锚点；5 分钟无操作 → 待机镜头（拍照模式）</p>
+      </div>
+    </div>
+
+    <div class="system-row">
+      <div class="sys-code">B</div>
+      <div>
+        <h4>场景叙事系统（残响）</h4>
+        <p><b>规则</b>：全游戏 <b style="color:var(--accent)">80 个残响</b>（视觉 40% / 听觉 30% / 文本 30%）；收集 60 → 假结局；80 → 真结局；三条叙事线并行：灾变原因 / 主角身世 / 城市陷落时间线</p>
+        <p class="boundary">⚠ 边界：阅读时游戏时间暂停；移动端字号 ≥ 16sp 支持双指缩放；据点设"残响回顾"菜单</p>
+      </div>
+    </div>
+
+    <div class="system-row">
+      <div class="sys-code">C</div>
+      <div>
+        <h4>轻度生存系统</h4>
+        <p><b>只保留三件套</b>：① 背包容量（基础 20 格，据点升级 +10/次，最多 30 格）② 装备耐久（撬棍 30 次 / 手电 120min / 防毒面具 60min）③ 环境伤害（酸雨 -2/s / 坍塌 -5/s）</p>
+        <p><b>死亡惩罚</b>：回锚点，<b style="color:var(--accent)">不掉线索，只丢一半材料</b>；装备耐久归 0 → 断裂可修，不是销毁</p>
+      </div>
+    </div>
+
+    <div class="system-row">
+      <div class="sys-code">D</div>
+      <div>
+        <h4>空间解谜系统</h4>
+        <p><b>原则</b>：谜题必须是"看懂这栋楼"，不是"找对按钮"。全游戏 17 个谜题：结构路径 6 / 重量平衡 3 / 电源恢复 4 / 环境观察 4</p>
+        <p><b>三档提示状态机</b>：卡 5min → 环境暗示句；10min → 白色轮廓指引（只标方向）；15min → 直接高亮</p>
+        <p class="boundary">⚠ 验收：17 个谜题外部 10 人测试，平均解出时间 5-10 min；提示使用率 5min ≤ 60% / 10min ≤ 30% / 15min ≤ 10%</p>
+      </div>
+    </div>
+
+    <div class="system-row">
+      <div class="sys-code">E</div>
+      <div>
+        <h4>遭遇战系统</h4>
+        <p><b>原则</b>：敌人是"事件"，不是"杂兵"。共 5 种敌人（游荡者 / 变异犬 / 巢穴孢子 / 拾荒者 / 章 Boss）；每章遭遇点 &lt; 6 个，<b style="color:var(--accent)">不刷怪</b></p>
+        <p><b>战斗三选一</b>：暗杀（背刺一击必杀）/ 逃跑（脱战回原位）/ 正面（胜率 &lt; 50%，故意的）</p>
+        <p class="boundary">⚠ 据点内绝无敌人；战斗中存档在战后触发；怪的寻路每 5s 重置</p>
+      </div>
+    </div>
+
+    <div class="system-row">
+      <div class="sys-code">F</div>
+      <div>
+        <h4>据点系统</h4>
+        <p><b>3 个据点</b>：中转站公寓（Ch1 末 / 基础）→ 地铁站掩体（Ch3 末 / + 仓库 + 残响回顾）→ 天文台（Ch5 前 / + 结局分支）；<b style="color:var(--accent)">据点绝对安全</b></p>
+        <p><b>存档</b>：1 autosave + 1 手动槽；离开据点前自动存档</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>1.2.1 系统详细数值表</h2>
+
+    <p style="color:var(--text-dim);font-size:13px;margin-top:16px">🔹 <b>敌人清单</b>（共 5 种）</p>
+    <table class="pm-table">
+      <thead><tr><th>敌人</th><th>出现章节</th><th>每章数量</th><th>攻击</th><th>血量</th><th>弱点</th></tr></thead>
+      <tbody>
+        <tr><td>游荡者（人形）</td><td>1–5</td><td>3–5</td><td>近战爪击 15 HP</td><td>40</td><td>背刺一击必杀</td></tr>
+        <tr><td>变异犬</td><td>2–4</td><td>2–3</td><td>扑咬 20 HP</td><td>25</td><td>打头 2x</td></tr>
+        <tr><td>巢穴孢子</td><td>3–5</td><td>1–2</td><td>范围毒雾 10/s</td><td>60</td><td>火烧</td></tr>
+        <tr><td>拾荒者（人类）</td><td>4</td><td>2</td><td>远程射击 12 HP</td><td>50</td><td>可对话回避</td></tr>
+        <tr><td>章 Boss</td><td>每章 1</td><td>5</td><td>多种阶段</td><td>200</td><td>阶段机制</td></tr>
+      </tbody>
+    </table>
+
+    <p style="color:var(--text-dim);font-size:13px;margin-top:24px">🔹 <b>残响章节分布</b>（全游戏 80 个）</p>
+    <table class="pm-table">
+      <thead><tr><th>章节</th><th>视觉残响</th><th>听觉残响</th><th>文本残响</th><th>小计</th></tr></thead>
+      <tbody>
+        <tr><td>1 东城门</td><td>5</td><td>3</td><td>4</td><td>12</td></tr>
+        <tr><td>2 商业街</td><td>6</td><td>4</td><td>5</td><td>15</td></tr>
+        <tr><td>3 住宅区</td><td>7</td><td>5</td><td>6</td><td>18</td></tr>
+        <tr><td>4 医院</td><td>8</td><td>6</td><td>6</td><td>20</td></tr>
+        <tr><td>5 中央塔</td><td>6</td><td>4</td><td>5</td><td>15</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--text-dim);font-size:12px;margin-top:8px">三条叙事线并行：灾变原因线 30 / 主角身世线 25 / 城市陷落时间线 25</p>
+
+    <p style="color:var(--text-dim);font-size:13px;margin-top:24px">🔹 <b>装备耐久 & 玩家数值</b></p>
+    <table class="pm-table">
+      <thead><tr><th>装备</th><th>初始耐久</th><th>损耗规则</th><th>修理材料</th></tr></thead>
+      <tbody>
+        <tr><td>撬棍</td><td>30 次击打</td><td>每次命中 -1</td><td>金属 ×5</td></tr>
+        <tr><td>手电</td><td>120 min 开启</td><td>每分钟 -1</td><td>电池 ×3</td></tr>
+        <tr><td>防毒面具</td><td>60 min 滤罐</td><td>酸雨区每秒 -1</td><td>滤罐 ×2</td></tr>
+      </tbody>
+    </table>
+
+    <p style="color:var(--text-dim);font-size:13px;margin-top:24px">🔹 <b>据点详细规格</b></p>
+    <table class="pm-table">
+      <thead><tr><th>据点</th><th>位置</th><th>解锁章节</th><th>功能</th></tr></thead>
+      <tbody>
+        <tr><td>中转站公寓</td><td>第一章末</td><td>1</td><td>基础：存档 / 修装备 / 升级背包</td></tr>
+        <tr><td>地铁站掩体</td><td>第三章末</td><td>3</td><td>中级：+ 仓库 / + 残响回顾</td></tr>
+        <tr><td>天文台</td><td>第五章前</td><td>5</td><td>高级：+ 结局分支选择</td></tr>
+      </tbody>
+    </table>
+
+    <p style="color:var(--text-dim);font-size:13px;margin-top:24px">🔹 <b>谜题类型分布</b>（全游戏 17 个）</p>
+    <table class="pm-table">
+      <thead><tr><th>类型</th><th>数量</th><th>例子</th></tr></thead>
+      <tbody>
+        <tr><td>结构路径</td><td>6</td><td>利用电梯井 / 消防通道到达天台</td></tr>
+        <tr><td>重量平衡</td><td>3</td><td>把废弃汽车推到承重板上打开通道</td></tr>
+        <tr><td>电源恢复</td><td>4</td><td>找到 3 个配电箱恢复大楼电力</td></tr>
+        <tr><td>环境观察</td><td>4</td><td>看壁画顺序按对应按钮</td></tr>
+      </tbody>
+    </table>
+
+    <p style="color:var(--text-dim);font-size:13px;margin-top:24px">🔹 <b>探索系统参数</b></p>
+    <table class="pm-table">
+      <thead><tr><th>参数</th><th>值</th></tr></thead>
+      <tbody>
+        <tr><td>步行速度</td><td>2.5 m/s</td></tr>
+        <tr><td>奔跑速度</td><td>4.5 m/s</td></tr>
+        <tr><td>体力上限 / 回复</td><td>100 / 每秒 10</td></tr>
+        <tr><td>勘测器被动触发距离</td><td>5 m</td></tr>
+        <tr><td>勘测器主动扫描半径</td><td>15 m</td></tr>
+        <tr><td>主动模式持续</td><td>2 s</td></tr>
+        <tr><td>主动模式冷却</td><td>30 s</td></tr>
+        <tr><td>玩家 HP</td><td>100</td></tr>
+        <tr><td>死亡惩罚</td><td>回锚点，材料 -50%，线索保留</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>1.3 关卡设计规格</h2>
+    <table class="pm-table">
+      <thead><tr><th>章节</th><th>主题</th><th>时长</th><th>残响</th><th>遭遇点</th><th>主谜题</th></tr></thead>
+      <tbody>
+        <tr><td>1 东城门</td><td>城市入口，灾变初期</td><td>60–75 min</td><td>12</td><td>4</td><td>电梯井</td></tr>
+        <tr><td>2 商业街</td><td>繁华到崩塌</td><td>75–90 min</td><td>15</td><td>5</td><td>电力恢复</td></tr>
+        <tr><td>3 住宅区</td><td>家庭悲剧</td><td>60–75 min</td><td>18</td><td>4</td><td>重量平衡</td></tr>
+        <tr><td>4 医院</td><td>医疗崩溃</td><td>75–90 min</td><td>20</td><td>6</td><td>环境观察</td></tr>
+        <tr><td>5 中央塔</td><td>真相揭晓</td><td>90–120 min</td><td>15</td><td>5</td><td>综合</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>1.4 UI / UX 规格</h2>
+    <p><b>HUD 信息层级</b>（屏幕上永远显示的）：</p>
+    <ul style="padding-left:0;margin-top:12px;font-size:14px;color:var(--text-soft);line-height:1.9">
+      <li>🟢 左上：HP 条（低血量变红脉冲）</li>
+      <li>🟢 右下：当前手持装备耐久（<b style="color:var(--accent)">仅耐久 < 30% 才显示</b>）</li>
+      <li>🟢 右上：勘测器脉冲（被动触发时）</li>
+      <li style="color:var(--danger)">❌ 不显示：小地图、目标箭头、敌人血条、伤害数字</li>
+    </ul>
+    <p style="margin-top:16px"><b>菜单树</b>：</p>
+    <div class="code-block" style="margin-top:8px;background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 24px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text-soft);line-height:1.9">ESC → 菜单
+  ├─ 继续
+  ├─ 背包（Tab）
+  ├─ 残响回顾（收集度 60/80）
+  ├─ 设置
+  └─ 保存并退出</div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>1.5 技术规格</h2>
+    <p><b>平台需求</b>：</p>
+    <table class="pm-table">
+      <thead><tr><th>平台</th><th>分辨率</th><th>帧率</th><th>最低配置</th></tr></thead>
+      <tbody>
+        <tr><td>PC Steam</td><td>1080p</td><td>60fps</td><td>GTX 1050 / 8GB RAM / 12GB 磁盘</td></tr>
+        <tr><td>Switch</td><td>720p 掌机 / 1080p 底座</td><td>30fps</td><td>—</td></tr>
+        <tr><td>PS5</td><td>4K</td><td>60fps</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:16px"><b>性能预算</b>：单场景三角面 ≤ 5M / 单场景贴图内存 ≤ 2GB / 场景切换加载 ≤ 5s / 内存 ≤ 6GB / 包体 PC 12GB</p>
+    <p style="margin-top:16px"><b>存档触发点</b>：① 进入新锚点 ② 收集新残响 ③ 章节完成 ④ 据点休息 ⑤ Steam Cloud 自动同步</p>
+  </div>
+
+  <div class="phase-badge">阶段 2｜设计拆析</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-how">HOW</span>2.1 单章节奏曲线</h2>
+    <div style="background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius-sm);padding:24px;margin-top:16px">
+      <svg viewBox="0 0 720 240" style="width:100%;height:auto;display:block">
+        <defs>
+          <linearGradient id="curveFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#6ee7b7" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#6ee7b7" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+        <!-- Y axis labels -->
+        <text x="28" y="40" fill="#9aa7b5" font-size="12" font-family="'JetBrains Mono',monospace" text-anchor="end">高</text>
+        <text x="28" y="110" fill="#9aa7b5" font-size="12" font-family="'JetBrains Mono',monospace" text-anchor="end">中</text>
+        <text x="28" y="180" fill="#9aa7b5" font-size="12" font-family="'JetBrains Mono',monospace" text-anchor="end">低</text>
+        <text x="22" y="22" fill="#6ee7b7" font-size="12" font-family="'JetBrains Mono',monospace" text-anchor="end">张力</text>
+        <!-- Y axis lines -->
+        <line x1="40" y1="36" x2="60" y2="36" stroke="#1a2230" stroke-width="2"/>
+        <line x1="40" y1="106" x2="60" y2="106" stroke="#1a2230" stroke-width="2"/>
+        <line x1="40" y1="176" x2="60" y2="176" stroke="#1a2230" stroke-width="2"/>
+        <!-- X axis -->
+        <line x1="60" y1="200" x2="680" y2="200" stroke="#2a3444" stroke-width="1.5"/>
+        <!-- Vertical grid lines -->
+        <line x1="160" y1="30" x2="160" y2="200" stroke="#1a2230" stroke-width="1"/>
+        <line x1="280" y1="30" x2="280" y2="200" stroke="#1a2230" stroke-width="1"/>
+        <line x1="400" y1="30" x2="400" y2="200" stroke="#1a2230" stroke-width="1"/>
+        <line x1="520" y1="30" x2="520" y2="200" stroke="#1a2230" stroke-width="1"/>
+        <!-- X labels -->
+        <text x="60" y="218" fill="#9aa7b5" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="middle">0</text>
+        <text x="160" y="218" fill="#9aa7b5" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="middle">15</text>
+        <text x="280" y="218" fill="#9aa7b5" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="middle">30</text>
+        <text x="400" y="218" fill="#9aa7b5" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="middle">45</text>
+        <text x="520" y="218" fill="#9aa7b5" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="middle">60</text>
+        <text x="600" y="218" fill="#6b7a8c" font-size="11" font-family="'JetBrains Mono',monospace">时间(min)</text>
+        <!-- Area fill under curve -->
+        <path d="M60,175 C100,175 120,165 160,130 C200,95 220,55 280,38 C340,22 370,60 400,100 C430,140 460,168 520,172 L520,200 L60,200 Z" fill="url(#curveFill)"/>
+        <!-- Curve line -->
+        <path d="M60,175 C100,175 120,165 160,130 C200,95 220,55 280,38 C340,22 370,60 400,100 C430,140 460,168 520,172" fill="none" stroke="#6ee7b7" stroke-width="2.5" stroke-linecap="round" data-draw/>
+        <!-- Data point: 探索 -->
+        <circle cx="60" cy="175" r="5" fill="#6ee7b7" data-pop/>
+        <text x="60" y="195" fill="#6ee7b7" font-size="12" font-weight="600" text-anchor="middle">● 探索</text>
+        <!-- Data point: 解谜 -->
+        <circle cx="160" cy="130" r="5" fill="#94a3b8" data-pop/>
+        <text x="148" y="124" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="end">● 解谜</text>
+        <!-- Data point: 遭遇战 (peak) -->
+        <circle cx="280" cy="38" r="6" fill="#f87171" data-pop/>
+        <circle cx="280" cy="38" r="11" fill="none" stroke="#f87171" stroke-width="1.5" opacity="0.4" data-pop/>
+        <text x="280" y="28" fill="#f87171" font-size="12" font-weight="600" text-anchor="middle">● 遭遇战</text>
+        <!-- Data point: 据点 -->
+        <circle cx="520" cy="172" r="5" fill="#94a3b8" data-pop/>
+        <text x="532" y="170" fill="#94a3b8" font-size="12" font-weight="600">● 据点</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-how">HOW</span>2.2 情绪曲线 & 体验侧细节</h2>
+    <div class="quote-block">孤独 → 好奇 → 紧张 → 恐惧 → 释然</div>
+    <div class="mechanics" data-reveal-stagger="scale">
+      <div class="mech-item"><h4>🌧️ 野外</h4><p>冷色、低饱和、环境音留白；HUD 极简（HP 条 + 装备耐久 &lt; 30% 才显示）</p></div>
+      <div class="mech-item"><h4>🏠 据点</h4><p>暖光、轻微 BGM、UI 配色同步换；据点菜单：背包 / 残响回顾 / 设置 / 保存退出</p></div>
+    </div>
+  </div>
+
+  <div class="callout" data-reveal="scale">
+    <h4>💡 产品思考：体验侧 vs 生产侧，PM 两边都要管</h4>
+    <p>PM 不仅要写 PRD，还要能 <strong>画节奏曲线</strong>（关卡验收标准）、<strong>算预算回本线</strong>（立项可行性）、<strong>盯数据埋点</strong>（上线后验证假设）。这三件事，纯美术或纯程序背景的候选人通常不会主动做。</p>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-how">HOW</span>2.3 美术资产成本方案（PM × 美术协同）</h2>
+    <p style="color:var(--text-dim);font-size:13px;margin-top:8px">这是 PM 懂美术管线的核心价值：不等美术报完成本再砍需求，而是从一开始就提可落地的成本方案。</p>
+    <div class="mechanics" data-reveal-stagger="scale">
+      <div class="mech-item"><h4>🏗️ 模块化建筑</h4><p>底座 ×3 + 中段 ×4 + 屋顶 ×3 = <b style="color:var(--accent)">36 种外观组合</b>，覆盖全部 5 章的城市建筑</p></div>
+      <div class="mech-item"><h4>🎨 PBR 材质球库</h4><p>混凝土 ×3 / 铁锈 ×2 / 植被 ×3 / 破损 ×2，<b style="color:var(--accent)">跨模型共用</b>，不每个建筑单独做材质</p></div>
+      <div class="mech-item"><h4>⚡ 程序化点缀</h4><p>墙面涂鸦、地面杂物用 Substance Designer + 引擎 Procedural Scatter 生成，<b style="color:var(--accent)">不手工摆放</b></p></div>
+      <div class="mech-item"><h4>🎯 目标</h4><p>单章节美术资产产出从 <b>6 人周压到 3 人周</b>，直接砍掉一半美术成本</p></div>
+    </div>
+  </div>
+
+  <div class="phase-badge">阶段 3｜跟到上线</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>3.1 里程碑（锚定真实日期）</h2>
+    <table class="pm-table">
+      <thead><tr><th>里程碑</th><th>时间</th><th>内容</th><th>Go/No-Go 标准</th></tr></thead>
+      <tbody>
+        <tr><td>M1 原型</td><td>2026-11</td><td>灰盒 Ch1</td><td>内部可玩 30 min 不无聊</td></tr>
+        <tr><td>M2 垂直切片</td><td>2027-01</td><td>Ch1 完整美术 + 玩法</td><td>10 人外部测试 NPS > 30</td></tr>
+        <tr><td>M3 Steam 页面</td><td>2027-03</td><td>预告片 + 商店页</td><td>愿望单月增 1,000+</td></tr>
+        <tr><td>M4 Next Fest</td><td>2027-06</td><td>放出 Demo</td><td>Demo 转化愿望单 ≥ 4%</td></tr>
+        <tr><td>M5 Alpha</td><td>2027-07</td><td>全 5 章可通关</td><td>无 P0 Bug</td></tr>
+        <tr><td>M6 Beta</td><td>2027-09</td><td>内容冻结</td><td>崩溃率 &lt; 1%；愿望单 ≥ 15,000</td></tr>
+        <tr><td>M7 EA 发售</td><td>2027-11</td><td>抢先体验</td><td>首周 ≥ 2,500 套；退款率 ≤ 10%</td></tr>
+        <tr><td>M8 1.0 正式版</td><td>2028-05</td><td>内容补完</td><td>累计 ≥ 5 万套回本</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>3.2 团队配置（小独立组现实配置）</h2>
+    <table class="pm-table">
+      <thead><tr><th>角色</th><th>人数</th><th>分工</th></tr></thead>
+      <tbody>
+        <tr><td>制作人 / PM</td><td>1</td><td>需求 / PRD / 验收 / 对外</td></tr>
+        <tr><td>程序</td><td>2</td><td>玩法 ×1 / 引擎渲染 ×1</td></tr>
+        <tr><td>美术</td><td>3</td><td>场景 ×2 / 角色 UI ×1</td></tr>
+        <tr><td>关卡策划</td><td>1</td><td>谜题设计 + 关卡节奏</td></tr>
+        <tr><td>文案 / 叙事</td><td>0.5</td><td>兼职，叙事碎片文本</td></tr>
+        <tr><td>外包</td><td>—</td><td>配乐 ×1 / 配音 ×2 / 动捕 ×3 天</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--text-dim);font-size:11px;margin-top:14px">ps：基于市场标准价格个人推理</p>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>3.3 预算与回本测算（真实分账模型）</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px">
+      <div>
+        <p style="color:var(--text-dim);font-size:13px;margin-bottom:8px">成本侧</p>
+        <div class="budget-row"><div class="b-label">人力 7 人 × 12 个月（月薪 18k × 福利 1.4）</div><div class="b-val">211 万</div></div>
+        <div class="budget-row"><div class="b-label">外包 + 工具 + 授权</div><div class="b-val">25 万</div></div>
+        <div class="budget-total"><div class="b-label">总预算</div><div class="b-val">236 万</div></div>
+        <p style="color:var(--text-dim);font-size:12px;margin-top:8px">注：走兼职路线可压到 80-120 万</p>
+      </div>
+      <div>
+        <p style="color:var(--text-dim);font-size:13px;margin-bottom:8px">回本侧</p>
+        <div class="budget-row"><div class="b-label">定价</div><div class="b-val">¥78</div></div>
+        <div class="budget-row"><div class="b-label">Steam 分成后（70%）</div><div class="b-val">¥54.6</div></div>
+        <div class="budget-row"><div class="b-label">扣退款 10%</div><div class="b-val">¥49.1</div></div>
+        <div class="budget-total"><div class="b-label">回本所需销量</div><div class="b-val">4.8 万套</div></div>
+        <p style="color:var(--danger);font-size:12px;margin-top:8px">对应愿望单 10-15 万（考虑长尾终身转化）</p>
+      </div>
+    </div>
+    <p style="color:var(--text-dim);font-size:11px;margin-top:14px">ps：基于市场标准价格个人推理</p>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>3.4 上线后数据验证（锚定行业基准）</h2>
+    <p><b>北极星指标</b>：首章 24h 通关率 —— 衡量开场是否抓得住人。</p>
+    <table class="pm-table">
+      <thead><tr><th>指标</th><th>行业基准</th><th>本游戏目标</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>整体通关率</td><td>中位数 36%</td><td class="row-hl">≥ 45%</td><td>10-15h 短流程叙事应高于中位数</td></tr>
+        <tr><td>首章 24h 通关率</td><td>无直接基准</td><td class="row-hl">≥ 65%</td><td>整体 36% 倒推首章是整体的 1.5-2 倍</td></tr>
+        <tr><td>残响收集率</td><td>20-40%（成就解锁率）</td><td class="row-hl">≥ 35%</td><td></td></tr>
+        <tr><td>真结局触发率</td><td>3-8%（隐藏结局普遍）</td><td class="row-hl">≥ 5%</td><td>不追求高，追求口碑讨论度</td></tr>
+        <tr><td>谜题提示使用率</td><td>无</td><td class="row-hl">20–40%</td><td>过低=太简单，过高=太难</td></tr>
+        <tr><td>战斗回避率</td><td>无</td><td class="row-hl">≥ 50%</td><td>验证"轻战斗"定位</td></tr>
+        <tr><td>Steam 好评率</td><td>艾迪芬奇 95% / 幽灵线 60%</td><td class="row-hl">≥ 85%</td><td>"特别好评"门槛</td></tr>
+        <tr><td>退款率</td><td>中位数 9.5% / EA 12.4%</td><td class="row-hl">≤ 10%</td><td>解谜类最低 6.2%</td></tr>
+        <tr><td>首周愿望单转化</td><td>中位数 10.5%</td><td class="row-hl">≥ 18%</td><td>有 Demo 加持</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--text-dim);font-size:11px;margin-top:14px">ps：基于市场标准价格个人推理</p>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>3.5 核心埋点事件（20 个，节选 10 个）</h2>
+    <table class="pm-table">
+      <thead><tr><th>事件 ID</th><th>触发时机</th><th>关键参数</th></tr></thead>
+      <tbody>
+        <tr><td><code style="color:var(--accent)">game_launch</code></td><td>游戏启动</td><td>平台、会话时长</td></tr>
+        <tr><td><code style="color:var(--accent)">zone_enter</code></td><td>进入新章节</td><td>章节 ID</td></tr>
+        <tr><td><code style="color:var(--accent)">zone_exit</code></td><td>离开章节</td><td>章节 ID、时长、死亡次数</td></tr>
+        <tr><td><code style="color:var(--accent)">echo_pickup</code></td><td>拾取残响</td><td>残响 ID、类型</td></tr>
+        <tr><td><code style="color:var(--accent)">puzzle_hint_show</code></td><td>提示触发</td><td>谜题 ID、提示级别</td></tr>
+        <tr><td><code style="color:var(--accent)">puzzle_solved</code></td><td>谜题解出</td><td>谜题 ID、用时</td></tr>
+        <tr><td><code style="color:var(--accent)">combat_encounter</code></td><td>遭遇战开始</td><td>敌人 ID</td></tr>
+        <tr><td><code style="color:var(--accent)">combat_resolved</code></td><td>战斗结束</td><td>胜利/逃跑/死亡、用时</td></tr>
+        <tr><td><code style="color:var(--accent)">death</code></td><td>死亡</td><td>死因、章节</td></tr>
+        <tr><td><code style="color:var(--accent)">checkpoint_reach</code></td><td>到达锚点</td><td>锚点 ID</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>3.6 风险登记册</h2>
+    <div class="risk-item">
+      <div class="risk-num">1</div>
+      <div><strong>美术成本超支</strong> <span style="color:var(--text-dim);font-size:12px">（高概率 / 高影响）</span><br><span class="hedge">→ 模块化建筑（底座×3 + 中段×4 + 屋顶×3 = 36 种组合）+ PBR 材质复用 + 程序化点缀，单章节美术资产从 6 人周压到 3 人周</span></div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-num">2</div>
+      <div><strong>解谜手感不准</strong> <span style="color:var(--text-dim);font-size:12px">（中概率 / 高影响）</span><br><span class="hedge">→ M2 垂直切片阶段就做 10 人可用性测试，不要等 Alpha</span></div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-num">3</div>
+      <div><strong>叙事碎片拼不起来</strong> <span style="color:var(--text-dim);font-size:12px">（中概率 / 中影响）</span><br><span class="hedge">→ M4 前叙事策划做全文时间线交叉审</span></div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-num">4</div>
+      <div><strong>移植性能不达标</strong> <span style="color:var(--text-dim);font-size:12px">（中概率 / 中影响）</span><br><span class="hedge">→ M3 就出 Switch 灰盒版本，不等后期</span></div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-num">5</div>
+      <div><strong>首发销量不达预期</strong> <span style="color:var(--text-dim);font-size:12px">（中概率 / 高影响）</span><br><span class="hedge">→ EA 期按数据迭代，用 DLC 长尾续命</span></div>
+    </div>
+  </div>
+
+  <div class="phase-badge" style="margin-top:48px">📎 附录｜完整 PRD v0.5 源文件</div>
+  <div id="prd-raw" class="section-block" style="animation:fadeIn .4s">
+    <p style="color:var(--text-dim);text-align:center;padding:40px">⏳ 正在加载 PRD 原文...</p>
+  </div>
+</main>
+
+<div class="pager">
+  <a href="index.html" class="pager__btn">← 首页</a>
+  <div class="pager__indicator"><span class="current">2</span> / 5 · 残墟巡界</div>
+  <a href="project2.html" class="pager__btn">浮岛工坊 →</a>
+</div>
+
+<footer class="footer">
+  <p>© 2026 杜思远 · XIV · 游戏产品经理</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  marked.setOptions({ breaks: true, gfm: true });
+  fetch('残墟巡界_PRD_v0.4.md')
+    .then(function(r) { return r.text(); })
+    .then(function(md) {
+      document.getElementById('prd-raw').innerHTML = marked.parse(md);
+    })
+    .catch(function(err) {
+      document.getElementById('prd-raw').innerHTML =
+        '<p style="color:var(--danger);text-align:center;padding:40px">⚠ 加载失败：' + err.message + '</p>' +
+        '<p style="text-align:center"><a href="残墟巡界_PRD_v0.4.md" download>点这里直接下载 PRD v0.5</a></p>';
+    });
+</script>
+<script src="animations.js"></script>
+<script src="background.js"></script>
+</body>
+</html>

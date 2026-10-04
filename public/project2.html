@@ -1,0 +1,716 @@
+﻿﻿﻿﻿﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案例分析｜《浮岛工坊》 | 杜思远作品集</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .pm-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px; }
+  .pm-table th, .pm-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .pm-table th { background: var(--surface); color: var(--text); font-weight: 600; font-size: 13px; letter-spacing: .04em; }
+  .pm-table td:first-child { font-weight: 600; color: var(--text); }
+  .pm-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .pm-table .row-hl { color: var(--accent); }
+  .pm-table .row-warn { color: var(--danger); }
+  .pm-table td code { font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--accent); background:rgba(110,231,183,0.1); padding:1px 6px; border-radius:4px }
+  .code-block { background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px 24px; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.9; color: var(--text-soft); white-space: pre; overflow-x: auto; }
+  .quote-block { border-left: 3px solid var(--accent); padding: 16px 20px; margin: 20px 0; background: rgba(110,231,183,0.06); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-size: 15px; color: var(--text); line-height: 1.8; font-style: italic; }
+  .tag-why { display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(110,231,183,0.15);color:var(--accent);margin-right:8px }
+  .tag-what { display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(96,165,250,0.15);color:var(--accent-2);margin-right:8px }
+  .tag-how { display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(251,191,36,0.15);color:var(--accent-warm);margin-right:8px }
+  .tag-go { display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(248,113,113,0.15);color:var(--danger);margin-right:8px }
+  .phase-badge { display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;background:var(--surface);border:1px solid var(--border-strong);font-size:14px;font-weight:600;color:var(--accent);margin-bottom:24px }
+  .principle-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:16px }
+  .principle-card { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;display:flex;gap:14px }
+  .principle-card .p-num { font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:20px;font-weight:700;flex-shrink:0 }
+  .principle-card h4 { font-size:15px;margin-bottom:4px;color:var(--text) }
+  .principle-card p { font-size:13px;color:var(--text-soft);margin:0;line-height:1.6 }
+  .vs-card { background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;margin-top:8px }
+  .vs-row { display:grid;grid-template-columns:100px 1fr 1fr;gap:0;border-bottom:1px solid var(--border);padding:10px 0;font-size:13.5px }
+  .vs-row:last-child { border-bottom:none }
+  .vs-row .vs-label { color:var(--text-dim);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase }
+  .vs-row .vs-p1 { color:var(--danger) }
+  .vs-row .vs-p2 { color:var(--accent) }
+  .vs-row h4 { grid-column:1/-1;font-size:14px;margin-bottom:4px;color:var(--text);letter-spacing:.04em }
+  .metric-row { display:grid;grid-template-columns:160px 140px 140px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);font-size:13.5px;align-items:top }
+  .metric-row:last-child { border-bottom:none }
+  .metric-row .m-name { color:var(--text);font-weight:600 }
+  .metric-row .m-bench { color:var(--text-soft) }
+  .metric-row .m-target { color:var(--accent);font-weight:700 }
+  .metric-row .m-src { color:var(--text-dim);font-size:12px }
+  .kpi-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:16px }
+  .kpi-card { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px;position:relative;overflow:hidden }
+  .kpi-card::before { content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent) }
+  .kpi-card .kpi-val { font-size:26px;font-weight:800;color:var(--accent);font-family:'JetBrains Mono',monospace;letter-spacing:-.02em }
+  .kpi-card .kpi-name { font-size:13px;color:var(--text-dim);margin-top:4px;letter-spacing:.04em;text-transform:uppercase }
+  .kpi-card .kpi-src { font-size:11px;color:var(--text-dim);margin-top:6px }
+  .risk-item { display:grid;grid-template-columns:24px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--border); }
+  .risk-item:last-child { border-bottom:none }
+  .risk-item .risk-num { width:24px;height:24px;border-radius:50%;background:rgba(248,113,113,0.15);color:var(--danger);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center }
+  .risk-item .hedge { color:var(--accent);font-size:13px }
+  .flow-step { display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--bg-soft);border:1px solid var(--border);border-radius:999px;font-size:13px;color:var(--text-soft);white-space:nowrap }
+  .flow-step.highlight { border-color:var(--accent);color:var(--accent);background:rgba(110,231,183,0.08) }
+  .flow-arrow { color:var(--text-dim);font-size:16px }
+  .cp-card { background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:12px }
+  .cp-card h4 { font-size:14px;color:var(--text);margin-bottom:8px;display:flex;align-items:center;gap:8px }
+  .cp-card .cp-data { font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--accent);background:rgba(110,231,183,0.1);padding:2px 8px;border-radius:4px;margin-left:6px }
+  .cp-card .cp-good { color:var(--accent);font-size:13px }
+  .cp-card .cp-bad { color:var(--danger);font-size:13px }
+  .cp-card .cp-opp { color:var(--accent-2);font-size:13px }
+  .budget-row { display:grid;grid-template-columns:1fr 120px;gap:16px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px }
+  .budget-row:last-child { border-bottom:none }
+  .budget-row .b-label { color:var(--text-soft) }
+  .budget-row .b-val { color:var(--accent);font-weight:600;text-align:right;font-family:'JetBrains Mono',monospace }
+  .budget-total { display:grid;grid-template-columns:1fr 120px;gap:16px;padding:16px 0;margin-top:12px;border-top:2px solid var(--border-strong);font-size:15px }
+  .budget-total .b-label { color:var(--text);font-weight:700 }
+  .budget-total .b-val { color:var(--accent);font-weight:700;text-align:right;font-family:'JetBrains Mono',monospace;font-size:18px }
+  .prd-download { display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:var(--radius);background:linear-gradient(135deg,rgba(110,231,183,0.12),rgba(96,165,250,0.12));border:1px solid rgba(110,231,183,0.4);color:var(--text);font-weight:600;font-size:15px;transition:transform .15s,border-color .2s;margin-bottom:32px }
+  .prd-download:hover { transform:translateY(-2px);border-color:var(--accent) }
+  .prd-download .ver-badge { padding:2px 8px;border-radius:4px;background:var(--accent);color:#06231a;font-size:11px;font-weight:700 }
+  @media (max-width:640px) {
+    .vs-row { grid-template-columns:1fr }
+    .vs-row > div:first-child { margin-bottom:4px }
+    .metric-row { grid-template-columns:1fr }
+    #prd-raw table { font-size:12px }
+  }
+  #prd-raw { padding:0; border:none; background:transparent; }
+  #prd-raw > * { padding: 0 28px; }
+  #prd-raw h1 { font-size:22px; color:var(--accent); padding:24px 28px 12px; border-bottom:1px solid var(--border); margin:0 }
+  #prd-raw h2 { font-size:17px; color:var(--text); margin-top:28px; margin-bottom:12px; padding-left:12px; border-left:3px solid var(--accent); line-height:1.4 }
+  #prd-raw h3 { font-size:15px; color:var(--accent-2); margin-top:20px; margin-bottom:8px }
+  #prd-raw h4 { font-size:14px; color:var(--accent-warm); margin-top:14px; margin-bottom:6px }
+  #prd-raw p { font-size:14px; color:var(--text-soft); line-height:1.8; margin:8px 0 }
+  #prd-raw strong { color:var(--text) }
+  #prd-raw em { color:var(--accent); font-style:normal }
+  #prd-raw blockquote { border-left:3px solid var(--accent); padding:10px 18px; margin:14px 28px; background:rgba(110,231,183,0.06); border-radius:0 var(--radius-sm) var(--radius-sm) 0; color:var(--text-soft); font-style:italic }
+  #prd-raw ul, #prd-raw ol { padding-left:22px; color:var(--text-soft); font-size:14px; line-height:1.9; margin:8px 0 }
+  #prd-raw li { margin:3px 0 }
+  #prd-raw code { font-family:'JetBrains Mono',monospace; font-size:12.5px; background:rgba(110,231,183,0.1); color:var(--accent); padding:1px 6px; border-radius:4px }
+  #prd-raw pre { background:var(--bg-soft); border:1px solid var(--border); border-radius:var(--radius-sm); padding:18px 22px; margin:14px 28px; overflow-x:auto; font-family:'JetBrains Mono',monospace; font-size:13px; line-height:1.9 }
+  #prd-raw pre code { background:none; padding:0; color:var(--text-soft) }
+  #prd-raw table { width:calc(100% - 56px); margin:14px 28px; border-collapse:collapse; font-size:13px }
+  #prd-raw th, #prd-raw td { padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); vertical-align:top }
+  #prd-raw th { background:var(--surface); color:var(--text); font-weight:600; font-size:12px; letter-spacing:.04em }
+  #prd-raw td:first-child { font-weight:600; color:var(--text) }
+  #prd-raw tr:hover td { background:rgba(255,255,255,0.02) }
+  #prd-raw hr { border:none; border-top:1px solid var(--border); margin:24px 28px }
+  #prd-raw a { color:var(--accent); text-decoration:none }
+  #prd-raw a:hover { text-decoration:underline }
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<nav class="topnav">
+  <div class="topnav__brand">XIV <span>/ 杜思远</span></div>
+  <div class="topnav__links">
+    <a href="index.html">首页</a>
+    <a href="project1.html">残墟巡界</a>
+    <a href="project2.html" class="active">浮岛工坊</a>
+    <a href="art.html">美术能力</a>
+    <a href="contact.html">联系方式</a>
+  </div>
+</nav>
+
+<main class="main">
+  <div class="page-tag" data-reveal="fade">案例分析 · 轻量概念项目</div>
+  <h1 class="page-title" data-reveal="left">《浮岛工坊》</h1>
+  <p class="page-subtitle">休闲建造 + 浮空岛场景设计（移动端 F2P 长线运营）</p>
+
+  <a href="浮岛工坊_P02_PRD_v0.1.md" download class="prd-download">📄 下载完整 PRD 文档 <span class="ver-badge">v0.1</span></a>
+
+  <div class="quote-block" style="margin-bottom:32px">
+    与 P01《残墟巡界》（PC 买断单机）完全不同赛道：本项目是 <b style="color:var(--accent)">F2P 长线运营手游</b>，核心指标是留存和 LTV，不是首周销量。
+  </div>
+
+  <div class="phase-badge">阶段 0｜设计五原则（一票否决）</div>
+
+  <div class="section-block" data-reveal>
+    <div class="principle-grid" data-reveal-stagger="scale">
+      <div class="principle-card"><div class="p-num">01</div><div><h4>创作自由优先</h4><p>不卖任何影响建造自由的数值</p></div></div>
+      <div class="principle-card"><div class="p-num">02</div><div><h4>30 分钟内第一次 "哇"</h4><p>新手期必须让玩家摆出自认为好看的一角</p></div></div>
+      <div class="principle-card"><div class="p-num">03</div><div><h4>离线也能玩</h4><p>不逼肝、不打卡、不做每日任务压迫</p></div></div>
+      <div class="principle-card"><div class="p-num">04</div><div><h4>社交是展示，不是攀比</h4><p>参观 = 点赞收藏，不做排行榜 / 战力</p></div></div>
+      <div class="principle-card"><div class="p-num">05</div><div><h4>美术即内容</h4><p>每个新建筑包都是一次内容更新，不是数值更新</p></div></div>
+    </div>
+  </div>
+
+  <div class="phase-badge">阶段 1｜产品概述</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>1.1 一句话定位</h2>
+    <div class="quote-block">移动端浮空岛建造游戏：玩家拥有一座浮空小岛，自由摆放建筑与景观，可参观他人岛屿、完成 NPC 委托解锁新组件，主打放松与审美创作。</div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>1.2 与项目一的本质区别</h2>
+    <div class="vs-card">
+      <div class="vs-row"><h4>维度 ↓</h4><div class="vs-p1">《残墟巡界》（P01）</div><div class="vs-p2">《浮岛工坊》（P02）</div></div>
+      <div class="vs-row"><div class="vs-label">平台</div><div>PC Steam</div><div>移动端</div></div>
+      <div class="vs-row"><div class="vs-label">商业模式</div><div>买断制 ¥78</div><div>F2P + 内购</div></div>
+      <div class="vs-row"><div class="vs-label">生命周期</div><div>10–15h 通关即结束</div><div>长线运营，月更内容</div></div>
+      <div class="vs-row"><div class="vs-label">核心指标</div><div>通关率、好评率</div><div>D1/D7/D30 留存、ARPDAU</div></div>
+      <div class="vs-row"><div class="vs-label">团队规模</div><div>7 人 × 12 月</div><div>5 人 × 10 月（小团队概念验证）</div></div>
+      <div class="vs-row"><div class="vs-label">美术量级</div><div>5 个手工章节</div><div>上线即 ≥ 200 件可放置组件</div></div>
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>1.3 商业目标（小团队概念验证，不照搬心动小镇）</h2>
+    <table class="pm-table">
+      <thead><tr><th>阶段</th><th>时间</th><th>DAU 目标</th><th>收入目标</th><th>依据</th></tr></thead>
+      <tbody>
+        <tr><td>V0.1 原型</td><td>M1–M3</td><td>不追求 DAU</td><td>0（无内购）</td><td>只验证建造手感</td></tr>
+        <tr><td>V0.2 封测</td><td>M4–M6</td><td>5,000 人封闭测试</td><td>0</td><td>验证留存曲线</td></tr>
+        <tr><td>V1.0 软启动</td><td>M7–M9</td><td>5 万 DAU</td><td>月流水 50 万</td><td>休闲手游中小体量</td></tr>
+        <tr><td>上线 12 月</td><td>M10–M18</td><td>20 万 DAU</td><td>月流水 200 万</td><td>对标桃源深处有人家量级的 1/3</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--text-dim);font-size:13px;margin-top:10px">💡 清醒认知：心动小镇全球累计 $1 亿是心动网络 200 人团队 + 5 年研发的结果。我们 5 人团队的现实目标是软启动跑通留存模型，不是做下一个心动小镇。</p>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>1.4 目标用户</h2>
+    <div class="persona-grid" data-reveal-stagger="scale">
+      <div class="persona-card"><h4>👩 主用户（70%）</h4><p>18–30 岁女性为主，喜欢动森、桃源深处有人家、江南百景图、光遇</p><div class="label">核心行为</div><div class="value">逛小红书 / B 站看装修攻略，追求审美表达</div></div>
+      <div class="persona-card"><h4>🎨 次用户</h4><p>喜欢装修 / 搭场景的"造景党"，自己动手摆布局</p><div class="label">核心行为</div><div class="value">重复摆同一个场景直到满意，不在乎数值进度</div></div>
+      <div class="persona-card"><h4 style="color:var(--danger)">🚫 反目标用户</h4><p>追求 PVP、战力、排行榜、每日任务打卡的用户</p><div class="label">我们不做</div><div class="value">公会、排行榜、战力系统、体力打卡</div></div>
+    </div>
+  </div>
+
+  <div class="phase-badge">阶段 2｜范围控制（In / Out of Scope）</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>2.1 In Scope</h2>
+    <div class="mechanics" data-reveal-stagger="scale">
+      <div class="mech-item"><h4>V0.1（M1–M3）</h4><p>1 座浮空岛地形、<b>50 件</b>基础建筑 / 家具、建造 / 旋转 / 删除、存档</p></div>
+      <div class="mech-item"><h4>V0.2（M4–M6）</h4><p>扩到 <b>200 件</b>组件、3 种地貌、NPC 委托系统、基础社交（点赞）</p></div>
+      <div class="mech-item"><h4>V1.0（M7–M9）</h4><p>岛屿分享到社交平台、访客留言、首个赛季通行证、3 个主题外观包</p></div>
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>2.2 Out of Scope（v1.0 明确不做）</h2>
+    <ul style="padding-left:0;margin-top:12px;font-size:14px;color:var(--text-soft);line-height:2">
+      <li style="color:var(--danger)">❌ 公会 / 组队 / 合作建造</li>
+      <li style="color:var(--danger)">❌ 排行榜（战力、热度、财富）</li>
+      <li style="color:var(--danger)">❌ PVP、抢资源、互偷</li>
+      <li style="color:var(--danger)">❌ 体力系统、每日任务打卡（违反原则 3）</li>
+      <li style="color:var(--danger)">❌ 战斗、怪物、副本</li>
+      <li style="color:var(--danger)">❌ 抽卡（用赛季通行证 + 直购外观包替代）</li>
+    </ul>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>2.3 版本验证目标（Go / No-Go）</h2>
+    <table class="pm-table">
+      <thead><tr><th>版本</th><th>验证问题</th><th>通过标准</th><th>不通过怎么办</th></tr></thead>
+      <tbody>
+        <tr><td>V0.1</td><td>玩家愿意摆多久？</td><td class="row-hl">单次建造时长 ≥ 15 min</td><td>重做编辑手感</td></tr>
+        <tr><td>V0.2</td><td>留存能不能起来？</td><td class="row-hl">D1 ≥ 40%、D7 ≥ 15%</td><td>加内容深度或改新手引导</td></tr>
+        <tr><td>V1.0</td><td>能不能赚到钱？</td><td class="row-hl">付费率 ≥ 3%、ARPDAU ≥ ¥0.15</td><td>调商业化设计（不做 pay-to-win）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="phase-badge">阶段 3｜竞品拆解（锚定真实数据）</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-why">WHY</span>3.1 四款对标产品</h2>
+
+    <div class="cp-card">
+      <h4>🎮 《集合啦！动物森友会》 <span class="cp-data">4,991 万套（任天堂 FY2026 Q3 财报）</span></h4>
+      <p class="cp-good">✅ 建造自由度极高、节日活动驱动回流、社交参观机制成熟</p>
+      <p class="cp-bad">❌ 节奏被现实时间锁死（服务器时间），Switch 平台门槛高</p>
+      <p class="cp-opp">🎯 机会：移动端免费下载、不锁现实时间、利用碎片时间</p>
+    </div>
+
+    <div class="cp-card">
+      <h4>🏘️ 《心动小镇》（Heartopia） <span class="cp-data">累计 $1 亿 / MAU 1134 万 / 付费率 11.3%</span></h4>
+      <p class="cp-good">✅ 3D 低多边形美术风格成熟、日常内容节奏好、小马宝莉等 IP 联动</p>
+      <p class="cp-bad">❌ 包体大（>10GB）、中低端机吃力、内容更新节奏慢</p>
+      <p class="cp-opp">🎯 机会：包体压到 500MB 以内、UGC 素材补内容</p>
+    </div>
+
+    <div class="cp-card">
+      <h4>🏡 《桃源深处有人家》 <span class="cp-data">月下载 10 万 / 月收入 $1M</span></h4>
+      <p class="cp-good">✅ 国风美术、经营 + 建造混合</p>
+      <p class="cp-bad">❌ 经营线重，建造被日常任务绑架</p>
+      <p class="cp-opp">🎯 机会：砍经营线，纯建造 + 审美，不逼任务</p>
+    </div>
+
+    <div class="cp-card">
+      <h4>🏯 《江南百景图》 <span class="cp-data">D1 中位数 51.6% / 月留存 32.7%</span></h4>
+      <p class="cp-good">✅ 2D 国风、城市规划玩法</p>
+      <p class="cp-bad">❌ 2D 视角限制建造自由度</p>
+      <p class="cp-opp">🎯 机会：3D 自由视角，移动端也能转角度摆建筑</p>
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>3.2 对标定位（我们在哪）</h2>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:24px;margin-top:16px">
+      <svg viewBox="0 0 640 380" style="width:100%;height:auto;display:block">
+        <defs>
+          <linearGradient id="posBg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.08"/>
+            <stop offset="100%" stop-color="#6ee7b7" stop-opacity="0.08"/>
+          </linearGradient>
+        </defs>
+
+        <rect x="50" y="40" width="540" height="280" rx="4" fill="url(#posBg)"/>
+
+        <line x1="50" y1="180" x2="590" y2="180" stroke="var(--border-strong)" stroke-width="1.5"/>
+        <line x1="320" y1="40" x2="320" y2="320" stroke="var(--border-strong)" stroke-width="1.5"/>
+
+        <text x="320" y="30" fill="var(--text-dim)" font-size="13" font-family="'JetBrains Mono',monospace" text-anchor="middle">高自由度</text>
+        <text x="320" y="355" fill="var(--text-dim)" font-size="13" font-family="'JetBrains Mono',monospace" text-anchor="middle">低自由度</text>
+        <text x="45" y="184" fill="var(--text-dim)" font-size="13" font-family="'JetBrains Mono',monospace" text-anchor="end">低自由度</text>
+        <text x="595" y="184" fill="var(--text-dim)" font-size="13" font-family="'JetBrains Mono',monospace" text-anchor="start">高自由度</text>
+
+        <text x="620" y="40" fill="var(--text-dim)" font-size="11" font-family="'JetBrains Mono',monospace" transform="rotate(90 620 40)" text-anchor="middle">垂直维度 · 建造深度</text>
+        <text x="320" y="370" fill="var(--text-dim)" font-size="11" font-family="'JetBrains Mono',monospace" text-anchor="middle">水平维度 · 玩法复杂度</text>
+
+        <circle cx="140" cy="80" r="9" fill="#9aa7b5" data-pop/>
+        <text x="140" y="68" fill="var(--text)" font-size="13" text-anchor="middle" font-weight="600">集合啦！动物森友会</text>
+        <text x="140" y="140" fill="var(--text-dim)" font-size="11" text-anchor="middle">4,991 万套 · Switch 门槛高</text>
+
+        <circle cx="155" cy="255" r="8" fill="#9aa7b5" data-pop/>
+        <text x="155" y="280" fill="var(--text-soft)" font-size="12" text-anchor="middle">江南百景图</text>
+        <text x="155" y="296" fill="var(--text-dim)" font-size="10.5" text-anchor="middle">2D 视角限制 · D1 51.6%</text>
+
+        <circle cx="185" cy="295" r="8" fill="#9aa7b5" data-pop/>
+        <text x="185" y="320" fill="var(--text-soft)" font-size="12" text-anchor="middle">桃源深处有人家</text>
+        <text x="185" y="336" fill="var(--text-dim)" font-size="10.5" text-anchor="middle">经营线绑架 · 月 $1M</text>
+
+        <circle cx="470" cy="120" r="8" fill="#9aa7b5" data-pop/>
+        <text x="470" y="108" fill="var(--text)" font-size="13" text-anchor="middle" font-weight="600">心动小镇</text>
+        <text x="470" y="178" fill="var(--text-dim)" font-size="11" text-anchor="middle">累计 $1 亿 · 包体 10GB+</text>
+
+        <circle cx="400" cy="160" r="13" fill="#6ee7b7" data-pop/>
+        <circle cx="400" cy="160" r="22" fill="none" stroke="#6ee7b7" stroke-width="1.5" opacity="0.35" data-pop/>
+        <text x="400" y="148" fill="#6ee7b7" font-size="14" text-anchor="middle" font-weight="700">《浮岛工坊》</text>
+        <text x="400" y="210" fill="#6ee7b7" font-size="11.5" text-anchor="middle" opacity="0.85">移动端 · 纯建造 · 不锁时间</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="phase-badge">阶段 4｜核心玩法循环</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>4.1 顶层循环（日活驱动）</h2>
+    <div class="loop-card">
+      <div class="loop-flow" data-reveal-stagger="fade">
+        <span class="flow-step">打开游戏</span><span class="flow-arrow">→</span>
+        <span class="flow-step highlight">上岛看一眼</span><span class="flow-arrow">→</span>
+        <span class="flow-step">摆几个新东西</span><span class="flow-arrow">→</span>
+        <span class="flow-step">参观别人岛</span><span class="flow-arrow">→</span>
+        <span class="flow-step">领委托奖励</span><span class="flow-arrow">→</span>
+        <span class="flow-step">下线</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-how">HOW</span>4.2 单局循环（10–15 min）</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px"><span style="color:var(--text-dim);font-size:11px;margin-right:6px">01</span>进入我的岛 <span style="color:var(--text-dim);font-size:11px">3s 加载</span></div>
+      <span style="color:var(--border-strong);font-weight:700;align-self:center">→</span>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px"><span style="color:var(--text-dim);font-size:11px;margin-right:6px">02</span>建造 / 调整 <span style="color:var(--text-dim);font-size:11px">5–10 min</span></div>
+      <span style="color:var(--border-strong);font-weight:700;align-self:center">→</span>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px"><span style="color:var(--text-dim);font-size:11px;margin-right:6px">03</span>委托 <span style="color:var(--text-dim);font-size:11px">1–2 个 · 2 min</span></div>
+      <span style="color:var(--border-strong);font-weight:700;align-self:center">→</span>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px"><span style="color:var(--text-dim);font-size:11px;margin-right:6px">04</span>参观 <span style="color:var(--text-dim);font-size:11px">2–3 min</span></div>
+      <span style="color:var(--border-strong);font-weight:700;align-self:center">→</span>
+      <div style="background:rgba(110,231,183,.08);border:1px solid rgba(110,231,183,.3);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px;color:var(--accent)"><span style="color:var(--accent);font-size:11px;margin-right:6px">05</span>解锁新组件</div>
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-how">HOW</span>4.3 周循环（留存驱动）</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px"><span style="color:var(--text-dim);font-size:11px;margin-right:6px">01</span>赛季任务刷新 <span style="color:var(--text-dim);font-size:11px">5 个轻任务</span></div>
+      <span style="color:var(--border-strong);font-weight:700;align-self:center">→</span>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px"><span style="color:var(--text-dim);font-size:11px;margin-right:6px">02</span>赛季经验累积</div>
+      <span style="color:var(--border-strong);font-weight:700;align-self:center">→</span>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px"><span style="color:var(--text-dim);font-size:11px;margin-right:6px">03</span>解锁赛季专属外观</div>
+      <span style="color:var(--border-strong);font-weight:700;align-self:center">→</span>
+      <div style="background:rgba(110,231,183,.08);border:1px solid rgba(110,231,183,.3);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px;color:var(--accent)"><span style="color:var(--accent);font-size:11px;margin-right:6px">04</span>分享拉新</div>
+    </div>
+  </div>
+
+  <div class="phase-badge">阶段 5｜六大系统 PRD</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>5.1 岛屿编辑系统（生命线）</h2>
+    <p style="color:var(--text-dim);font-size:13px;margin-top:8px">建造手感是生命线，编辑流程必须 3 步以内完成任何摆放。</p>
+    <table class="pm-table">
+      <thead><tr><th>操作</th><th>手势 / 按钮</th><th>规则</th></tr></thead>
+      <tbody>
+        <tr><td>选择建筑</td><td>从组件库点击</td><td>选中后跟随手指</td></tr>
+        <tr><td>放置</td><td>点击地面</td><td>网格吸附 <code>1m × 1m</code></td></tr>
+        <tr><td>旋转</td><td>双指旋转 / 旋转按钮</td><td>45° 一档，共 8 向</td></tr>
+        <tr><td>缩放</td><td>双指捏合</td><td>仅装饰类支持，建筑不缩放</td></tr>
+        <tr><td>删除</td><td>长按 1s</td><td>二次确认弹窗</td></tr>
+        <tr><td>移动</td><td>长按拖起</td><td>离地可旋转角度</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:24px">网格与碰撞</h3>
+    <ul style="padding-left:0;margin-top:8px;font-size:14px;color:var(--text-soft);line-height:1.9">
+      <li>▸ 浮空岛基础网格 <code>20m × 20m</code>，V1.0 可扩到 <code>40m × 40m</code></li>
+      <li>▸ 建筑占用 <code>1×1 / 2×2 / 3×3</code> 三种格数</li>
+      <li>▸ 相邻建筑碰撞检测：不可重叠，但可紧贴</li>
+      <li>▸ 边界检测：岛外不可放置，越界自动红框提示</li>
+    </ul>
+
+    <h3 style="margin-top:24px">异常分支</h3>
+    <table class="pm-table">
+      <thead><tr><th>异常</th><th>处理</th></tr></thead>
+      <tbody>
+        <tr><td>放置位置不合法</td><td>半透明红框 + 震动反馈，不可放置</td></tr>
+        <tr><td>背包组件不够</td><td>灰显 + 提示"通过委托 / 赛季解锁"</td></tr>
+        <tr><td>切后台</td><td>自动存档，恢复时回到编辑状态</td></tr>
+        <tr><td>同屏建筑 > 200</td><td>自动 LOD 降级，不闪退</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:24px">验收 Checklist</h3>
+    <ul style="padding-left:0;margin-top:8px;font-size:14px;color:var(--text-soft);line-height:1.9">
+      <li style="color:var(--accent)">☑ 从"打开组件库"到"放下一个建筑" ≤ 3 次点击</li>
+      <li style="color:var(--accent)">☑ 60fps 在中端机（骁龙 730）稳定</li>
+      <li style="color:var(--accent)">☑ 编辑中切后台恢复无数据丢失</li>
+    </ul>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>5.2 组件库系统</h2>
+    <p style="color:var(--text-dim);font-size:13px;margin-top:8px">V1.0 上线即 ≥ 200 件可放置组件，分类逻辑一目了然。</p>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px 24px;margin-top:16px">
+      <div style="font-size:14px;font-weight:600;color:var(--accent);margin-bottom:16px;letter-spacing:.06em">📦 组件库 · V0.1 → V1.0 扩容路线</div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:600">住宅</span>
+          <span style="font-size:12px;color:var(--text-dim)">V0.1 <span style="color:var(--accent);font-weight:700">8</span> → V1.0 <span style="color:var(--accent);font-weight:700">30</span></span>
+        </div>
+        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;position:relative">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:26.7%;background:#6ee7b7;border-radius:3px"></div>
+          <div style="position:absolute;left:0;top:0;bottom:0;width:100%;background:rgba(96,165,250,.15);border-radius:3px"></div>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:600">公共建筑</span>
+          <span style="font-size:12px;color:var(--text-dim)">V0.1 <span style="color:var(--accent);font-weight:700">5</span> → V1.0 <span style="color:var(--accent);font-weight:700">25</span></span>
+        </div>
+        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;position:relative">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:20%;background:#6ee7b7;border-radius:3px"></div>
+          <div style="position:absolute;left:0;top:0;bottom:0;width:100%;background:rgba(96,165,250,.15);border-radius:3px"></div>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:600">植被</span>
+          <span style="font-size:12px;color:var(--text-dim)">V0.1 <span style="color:var(--accent);font-weight:700">10</span> → V1.0 <span style="color:var(--accent);font-weight:700">50</span></span>
+        </div>
+        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;position:relative">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:20%;background:#6ee7b7;border-radius:3px"></div>
+          <div style="position:absolute;left:0;top:0;bottom:0;width:100%;background:rgba(96,165,250,.15);border-radius:3px"></div>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:600">道路 / 地形</span>
+          <span style="font-size:12px;color:var(--text-dim)">V0.1 <span style="color:var(--accent);font-weight:700">5</span> → V1.0 <span style="color:var(--accent);font-weight:700">20</span></span>
+        </div>
+        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;position:relative">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:25%;background:#6ee7b7;border-radius:3px"></div>
+          <div style="position:absolute;left:0;top:0;bottom:0;width:100%;background:rgba(96,165,250,.15);border-radius:3px"></div>
+        </div>
+      </div>
+      <div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:600">装饰 / 小物</span>
+          <span style="font-size:12px;color:var(--text-dim)">V0.1 <span style="color:var(--accent);font-weight:700">12</span> → V1.0 <span style="color:var(--accent);font-weight:700">50</span></span>
+        </div>
+        <div style="height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;position:relative">
+          <div style="position:absolute;left:0;top:0;bottom:0;width:24%;background:#6ee7b7;border-radius:3px"></div>
+          <div style="position:absolute;left:0;top:0;bottom:0;width:100%;background:rgba(96,165,250,.15);border-radius:3px"></div>
+        </div>
+      </div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px dashed var(--border);display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:12px;color:var(--text-dim);display:flex;gap:16px;align-items:center">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:6px;background:#6ee7b7;border-radius:2px;display:inline-block"></span>V0.1 已就绪</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:6px;background:rgba(96,165,250,.35);border-radius:2px;display:inline-block"></span>V1.0 扩容</span>
+        </div>
+        <span style="font-size:12px;color:var(--accent);font-weight:600">合计 V0.1 40 件 → V1.0 175 件</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:24px">组件获取途径</h3>
+    <table class="pm-table">
+      <thead><tr><th>途径</th><th>占比</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>初始解锁</td><td class="row-hl">20%</td><td>V0.1 即送，降低新手门槛</td></tr>
+        <tr><td>NPC 委托解锁</td><td class="row-hl">40%</td><td>核心成长线</td></tr>
+        <tr><td>赛季通行证</td><td>20%</td><td>免费线 + 付费线</td></tr>
+        <tr><td>直购外观包</td><td>15%</td><td>纯美术，不影响玩法</td></tr>
+        <tr><td>活动 / 联动</td><td>5%</td><td>限时获取</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>5.3 NPC 委托系统</h2>
+    <p style="color:var(--text-dim);font-size:13px;margin-top:8px">给轻度玩家一个"有事做"的理由，但不变成日常打卡。</p>
+    <ul style="padding-left:0;margin-top:10px;font-size:14px;color:var(--text-soft);line-height:1.9">
+      <li>▸ 每章 NPC <b>3–5 个</b>，分布在岛屿周边（<b>不放在岛上</b>）</li>
+      <li>▸ 委托刷新：<b style="color:var(--accent)">不做每日刷新</b>，而是完成后解锁下一个，玩家节奏自定</li>
+      <li>▸ 委托不做失败惩罚：摆错了可以改，NPC 不评判</li>
+    </ul>
+    <table class="pm-table" style="margin-top:14px">
+      <thead><tr><th>类型</th><th>例子</th><th>奖励</th></tr></thead>
+      <tbody>
+        <tr><td>主题布置</td><td>"帮我搭一个日式小庭院"</td><td>指定组件 ×3</td></tr>
+        <tr><td>收集</td><td>"我想看 5 棵樱花树"</td><td>装饰组件 ×2</td></tr>
+        <tr><td>参观</td><td>"帮我去看看 3 个别人的岛"</td><td>赛季经验</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>5.4 社交 / 参观系统</h2>
+    <div class="quote-block">原则：社交是"展示作品"，不是"攀比数据"。</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px"><span style="color:var(--text-dim);font-size:11px;margin-right:6px">01</span>我的岛 <span style="color:var(--text-dim);font-size:11px">点"参观"</span></div>
+      <span style="color:var(--border-strong);font-weight:700;align-self:center">→</span>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px"><span style="color:var(--text-dim);font-size:11px;margin-right:6px">02</span>推荐岛列表 <span style="color:var(--text-dim);font-size:11px">质量 / 热度</span></div>
+      <span style="color:var(--border-strong);font-weight:700;align-self:center">→</span>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px"><span style="color:var(--text-dim);font-size:11px;margin-right:6px">03</span>360° 游览</div>
+      <span style="color:var(--border-strong);font-weight:700;align-self:center">→</span>
+      <div style="background:rgba(110,231,183,.08);border:1px solid rgba(110,231,183,.3);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px;color:var(--accent)"><span style="color:var(--accent);font-size:11px;margin-right:6px">04</span>点赞 / 收藏 / 留言 / 复制布局</div>
+    </div>
+
+    <h3 style="margin-top:24px">核心规则</h3>
+    <ul style="padding-left:0;margin-top:8px;font-size:14px;color:var(--text-soft);line-height:1.9">
+      <li>▸ <b style="color:var(--accent)">不显示</b>访客数量、<b style="color:var(--accent)">不做</b>点赞排行榜</li>
+      <li>▸ 点赞每日上限 <code>50 次</code>（防刷）</li>
+      <li>▸ 留言必须人工审核关键词过滤</li>
+      <li>▸ "复制布局"是核心传播点 —— 降低新手学习成本</li>
+    </ul>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>5.5 赛季通行证系统</h2>
+    <table class="pm-table">
+      <thead><tr><th>参数</th><th>值</th></tr></thead>
+      <tbody>
+        <tr><td>赛季长度</td><td>8 周，共 50 级</td></tr>
+        <tr><td>免费线</td><td>20 个奖励（组件、货币）</td></tr>
+        <tr><td>付费线</td><td><code>¥30</code> 解锁，额外 30 个奖励（限定外观）</td></tr>
+        <tr><td style="color:var(--accent)">赛季经验来源</td><td>放置新组件 = 10 exp；完成委托 = 50 exp；被点赞 = 2 exp（每日上限 100）</td></tr>
+        <tr><td style="color:var(--text-dim)">关键异常</td><td>赛季结束未领奖励 → 邮件补发；限定外观不进后续直购包</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-what">WHAT</span>5.6 商业化系统（核心原则：不卖数值）</h2>
+    <table class="pm-table">
+      <thead><tr><th>来源</th><th>定价</th><th>占比目标</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>赛季通行证</td><td>¥30 / 赛季</td><td class="row-hl">40%</td><td>主要收入</td></tr>
+        <tr><td>外观建筑包</td><td>¥6–18 / 包</td><td class="row-hl">40%</td><td>单主题 5–10 件组件</td></tr>
+        <tr><td>月卡（可选）</td><td>¥18 / 月</td><td>15%</td><td>每日领装饰货币，不送体力</td></tr>
+        <tr><td>去广告</td><td>—</td><td>0%</td><td class="row-warn">本游戏不接广告</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--danger);font-size:13px;margin-top:14px;font-weight:600">❌ 绝对不卖：强力建筑 / 资源包 / 体力 / 抽卡（用直购 + 通行证替代）</p>
+
+    <h3 style="margin-top:20px">健康指标</h3>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-val">≥ 3%</div><div class="kpi-name">付费率</div><div class="kpi-src">休闲大盘 1–3% / 心动小镇 11.3%（头部）</div></div>
+      <div class="kpi-card"><div class="kpi-val">≥ ¥0.15</div><div class="kpi-name">ARPDAU</div><div class="kpi-src">休闲 ¥0.1–0.5</div></div>
+      <div class="kpi-card"><div class="kpi-val">¥30–60</div><div class="kpi-name">ARPPU（月）</div><div class="kpi-src">通行证 + 1 个外观包</div></div>
+    </div>
+  </div>
+
+  <div class="phase-badge">阶段 6｜里程碑 + 数据 + 技术</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>6.1 版本规划与里程碑</h2>
+    <table class="pm-table">
+      <thead><tr><th>版本</th><th>时间</th><th>团队</th><th>Go / No-Go 标准</th></tr></thead>
+      <tbody>
+        <tr><td>V0.1 原型</td><td>M1–M3</td><td>3 人（PM + 程序 + 美术）</td><td>10 人测试，单次建造时长 ≥ 15 min</td></tr>
+        <tr><td>V0.2 封测</td><td>M4–M6</td><td>5 人</td><td>5000 人测试，D1 ≥ 40%、D7 ≥ 15%</td></tr>
+        <tr><td>V1.0 软启动</td><td>M7–M9</td><td>5 人</td><td>5 万 DAU，付费率 ≥ 3%，崩溃率 < 1%</td></tr>
+        <tr><td>上线运营</td><td>M10–M18</td><td>5 人 + 外包</td><td>20 万 DAU，月流水 200 万</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>6.2 数据指标（锚定行业基准）</h2>
+    <p style="color:var(--accent);font-size:13px;font-weight:600">🌟 北极星指标：D7 留存率 —— 对休闲 F2P，D7 是决定能不能长线运营的生死线。</p>
+
+    <div class="metric-row" style="margin-top:14px">
+      <div class="m-name">D1 留存</div><div class="m-bench">大盘 25–35% / 头部 51.6%</div><div class="m-target">≥ 40%</div><div class="m-src">GameAnalytics 2024；行业报告</div>
+    </div>
+    <div class="metric-row">
+      <div class="m-name">D7 留存</div><div class="m-bench">大盘 8–15% / 好游戏 20%+</div><div class="m-target">≥ 15%</div><div class="m-src">Playio 2026</div>
+    </div>
+    <div class="metric-row">
+      <div class="m-name">D30 留存</div><div class="m-bench">大盘 3–7% / 好游戏 10%+</div><div class="m-target">≥ 5%</div><div class="m-src">GameAnalytics</div>
+    </div>
+    <div class="metric-row">
+      <div class="m-name">单次会话时长</div><div class="m-bench">休闲 8–20 min</div><div class="m-target">≥ 10 min</div><div class="m-src">Galaxy4Games</div>
+    </div>
+    <div class="metric-row">
+      <div class="m-name">日均会话次数</div><div class="m-bench">休闲 2–4 次</div><div class="m-target">≥ 2.5 次</div><div class="m-src">AppFollow</div>
+    </div>
+    <div class="metric-row">
+      <div class="m-name">付费率</div><div class="m-bench">大盘 1–3% / 心动 11.3%</div><div class="m-target">≥ 3%</div><div class="m-src">心动财报 2025</div>
+    </div>
+    <div class="metric-row">
+      <div class="m-name">ARPDAU</div><div class="m-bench">¥0.1–0.5</div><div class="m-target">≥ ¥0.15</div><div class="m-src">行业综合</div>
+    </div>
+    <div class="metric-row">
+      <div class="m-name">崩溃率</div><div class="m-bench">< 1% 健康</div><div class="m-target">< 1%</div><div class="m-src">行业共识</div>
+    </div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>6.3 核心埋点事件（节选 10 个）</h2>
+    <table class="pm-table">
+      <thead><tr><th>事件</th><th>触发时机</th><th>关键参数</th></tr></thead>
+      <tbody>
+        <tr><td><code>game_launch</code></td><td>启动</td><td>平台、系统、网络</td></tr>
+        <tr><td><code>session_start / end</code></td><td>每次会话</td><td>时长、放置数</td></tr>
+        <tr><td><code>item_place</code></td><td>放置组件</td><td>组件 ID、分类</td></tr>
+        <tr><td><code>item_remove</code></td><td>删除组件</td><td>组件 ID、是否撤销</td></tr>
+        <tr><td><code>mission_accept / complete</code></td><td>委托</td><td>NPC ID、用时</td></tr>
+        <tr><td><code>visit_island</code></td><td>参观他人岛</td><td>对方 ID、停留时长</td></tr>
+        <tr><td><code>like_given / received</code></td><td>点赞</td><td>对方 ID</td></tr>
+        <tr><td><code>battlepass_tier</code></td><td>赛季升级</td><td>当前等级、经验来源</td></tr>
+        <tr><td><code>iap_purchase</code></td><td>付费</td><td>商品 ID、金额</td></tr>
+        <tr><td><code>churn_risk</code></td><td>连续 3 天未登录</td><td>上次活跃天数</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-how">HOW</span>6.4 技术规格</h2>
+    <table class="pm-table">
+      <thead><tr><th>平台</th><th>最低配置</th><th>推荐配置</th></tr></thead>
+      <tbody>
+        <tr><td>iOS</td><td>iPhone 8 / iOS 13</td><td>iPhone 12+</td></tr>
+        <tr><td>Android</td><td>骁龙 660 / 4GB RAM</td><td>骁龙 855 / 8GB RAM</td></tr>
+        <tr><td>包体</td><td>≤ 500MB（首包）</td><td>—</td></tr>
+        <tr><td>冷启动</td><td>≤ 5s</td><td>—</td></tr>
+        <tr><td>帧率</td><td>30fps</td><td>60fps</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:14px;color:var(--text-soft);font-size:13px"><b>性能预算</b>：同屏三角面 ≤ 50 万 / 同屏可放置物 ≤ 200（超出自动 LOD）/ 内存 ≤ 1.5GB / 热更新赛季包 ≤ 100MB</p>
+  </div>
+
+  <div class="phase-badge">阶段 7｜跟到上线</div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>7.1 团队与预算（5 人 × 10 月）</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px">
+      <div>
+        <p style="color:var(--text-dim);font-size:13px;margin-bottom:8px">人力明细</p>
+        <table class="pm-table">
+          <thead><tr><th>角色</th><th>人数</th><th>月薪</th></tr></thead>
+          <tbody>
+            <tr><td>PM / 制作人</td><td>1</td><td>15k</td></tr>
+            <tr><td>程序（客户端）</td><td>2</td><td>20k</td></tr>
+            <tr><td>美术（场景 + UI）</td><td>2</td><td>18k</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p style="color:var(--text-dim);font-size:13px;margin-bottom:8px">预算汇总</p>
+        <div class="budget-row"><div class="b-label">人力 5 人 × 10 月</div><div class="b-val">91 万</div></div>
+        <div class="budget-row"><div class="b-label">外包（配乐 / 文案 / QA）</div><div class="b-val">10 万</div></div>
+        <div class="budget-row"><div class="b-label">工具 / 服务器 / 发布</div><div class="b-val">10 万</div></div>
+        <div class="budget-total"><div class="b-label">总预算</div><div class="b-val">≈ 111 万</div></div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:24px">回本测算</h3>
+    <ul style="padding-left:0;margin-top:8px;font-size:14px;color:var(--text-soft);line-height:1.9">
+      <li>▸ 月流水 200 万 → 扣渠道 50% + 税 + 运营 → 净留存 ≈ 30% = <b style="color:var(--accent)">60 万 / 月</b></li>
+      <li>▸ 月成本 ≈ 12 万（5 人团队）</li>
+      <li>▸ 月利润 ≈ 48 万 → 10 个月研发成本 ≈ <b style="color:var(--accent)">2–3 个月运营即可回本</b></li>
+    </ul>
+    <p style="color:var(--text-dim);font-size:12px;margin-top:8px">💡 对比心动小镇 200 人、5 年、数亿成本 —— 我们做的是"验证模型"而不是"做下一个心动小镇"。</p>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-go">GO</span>7.2 风险登记册</h2>
+    <div class="risk-item"><div class="risk-num">1</div><div><b>D7 留存跑不到 15%</b> <span style="color:var(--text-dim);font-size:12px">高概率 / 高影响</span><br><span class="hedge">→ V0.2 封测就跑留存，不等到上线</span></div></div>
+    <div class="risk-item"><div class="risk-num">2</div><div><b>美术产能跟不上赛季节奏</b> <span style="color:var(--text-dim);font-size:12px">高概率 / 中影响</span><br><span class="hedge">→ 低多边形管线 + UGC 素材</span></div></div>
+    <div class="risk-item"><div class="risk-num">3</div><div><b>建造手感在低端机卡顿</b> <span style="color:var(--text-dim);font-size:12px">中概率 / 高影响</span><br><span class="hedge">→ V0.1 就测骁龙 660</span></div></div>
+    <div class="risk-item"><div class="risk-num">4</div><div><b>社交功能被喷"抄袭动森"</b> <span style="color:var(--text-dim);font-size:12px">中概率 / 中影响</span><br><span class="hedge">→ 做差异化：浮空岛 + 不锁现实时间</span></div></div>
+    <div class="risk-item"><div class="risk-num">5</div><div><b>付费率上不去</b> <span style="color:var(--text-dim);font-size:12px">中概率 / 高影响</span><br><span class="hedge">→ 不卖数值就不能逼氪，接受 3% 付费率做长线</span></div></div>
+    <div class="risk-item"><div class="risk-num">6</div><div><b>心动小镇出移动端同题材更新</b> <span style="color:var(--text-dim);font-size:12px">低概率 / 高影响</span><br><span class="hedge">→ 做小而美，不正面刚</span></div></div>
+  </div>
+
+  <div class="section-block" data-reveal>
+    <h2><span class="tag-how">HOW</span>7.3 美术资产管线（衔接你的 Blender 经验）</h2>
+    <div class="quote-block">建造类游戏美术量极大（动森 8000+ 家具），小团队必须靠管线效率。</div>
+    <div class="mechanics" data-reveal-stagger="scale">
+      <div class="mech-item"><h4>低多边形 + 手绘贴图</h4><p>不用 PBR，单组件从建模到贴图 <b>2–4 小时</b>（PBR 要 1–2 天）</p></div>
+      <div class="mech-item"><h4>组件化贴图复用</h4><p>一套木纹 / 石纹 / 金属材质复用到 <b>10+ 建筑</b></p></div>
+      <div class="mech-item"><h4>程序化变体</h4><p>同一建筑基础模型，通过颜色 / 贴图变体出 <b>3 个"不同"建筑</b></p></div>
+      <div class="mech-item"><h4>V0.2 起开 UGC</h4><p>玩家用官方组件拼组合，官方每周精选上架，给创作者游戏内货币奖励</p></div>
+      <div class="mech-item" style="border-color:var(--accent)"><h4 style="color:var(--accent)">🎯 产能目标</h4><p>1 个美术 1 周产出 <b>15–20 个</b>新组件（PBR 管线只有 3–5 个）</p></div>
+    </div>
+  </div>
+
+  <div class="callout" data-reveal="scale">
+    <h4>💡 PM 差异化思考：从 P01 到 P02 跨赛道怎么想</h4>
+    <p>同一个 PM，做 PC 买断单机（P01）和做移动端 F2P 长线（P02），核心思维完全不同：</p>
+    <ul style="padding-left:20px;margin:12px 0 0;color:var(--text-soft);font-size:14px;line-height:1.8">
+      <li>P01 想的是 <b>"怎么让玩家 10 小时内玩完觉得值"</b> —— 节奏曲线、成本控制、首周销量</li>
+      <li>P02 想的是 <b>"怎么让玩家每天愿意打开，打开 3 个月"</b> —— D7 留存、赛季节奏、付费转化</li>
+      <li>但两个项目都用到了 <b>美术管线效率</b>：P01 靠模块化 + PBR 复用压成本，P02 靠低多边形 + UGC 提产能</li>
+    </ul>
+  </div>
+
+  <div class="phase-badge" style="margin-top:48px">📎 附录｜完整 PRD v0.1 源文件</div>
+  <div id="prd-raw" class="section-block" style="animation:fadeIn .4s">
+    <p style="color:var(--text-dim);text-align:center;padding:40px">⏳ 正在加载 PRD 原文...</p>
+  </div>
+</main>
+
+<div class="pager">
+  <a href="project1.html" class="pager__btn">← 残墟巡界</a>
+  <div class="pager__indicator"><span class="current">3</span> / 5 · 浮岛工坊</div>
+  <a href="art.html" class="pager__btn">美术能力 →</a>
+</div>
+
+<footer class="footer">
+  <p>© 2026 杜思远 · XIV · 游戏产品经理</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  marked.setOptions({ breaks: true, gfm: true });
+  fetch('浮岛工坊_P02_PRD_v0.1.md')
+    .then(function(r) { return r.text(); })
+    .then(function(md) {
+      document.getElementById('prd-raw').innerHTML = marked.parse(md);
+    })
+    .catch(function(err) {
+      document.getElementById('prd-raw').innerHTML =
+        '<p style="color:var(--danger);text-align:center;padding:40px">⚠ 加载失败：' + err.message + '</p>' +
+        '<p style="text-align:center"><a href="浮岛工坊_P02_PRD_v0.1.md" download>点这里直接下载 PRD v0.1</a></p>';
+    });
+</script>
+<script src="animations.js"></script>
+<script src="background.js"></script>
+</body>
+</html>

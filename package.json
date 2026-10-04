@@ -1,0 +1,11 @@
+{
+  "name": "dusiyuan-portfolio",
+  "version": "0.1.0",
+  "description": "杜思远个人作品集网站 - 游戏产品经理",
+  "scripts": {
+    "start": "node public/_server.js"
+  },
+  "keywords": ["portfolio", "game-product-manager"],
+  "author": "杜思远",
+  "license": "MIT"
+}
