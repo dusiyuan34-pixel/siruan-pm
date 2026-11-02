@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案例分析｜美术创作辅助 Agent | 杜思远作品集</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .pm-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px; }
+  .pm-table th, .pm-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .pm-table th { background: var(--surface); color: var(--text); font-weight: 600; font-size: 13px; letter-spacing: .04em; }
+  .pm-table td:first-child { font-weight: 600; color: var(--text); }
+  .pm-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .pm-table .row-hl { color: var(--accent); }
+  .pm-table .row-warn { color: var(--danger); }
+
+  .quote-block {
+    border-left: 3px solid var(--accent); padding: 16px 20px; margin: 20px 0;
+    background: rgba(110,231,183,0.06); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: 15px; color: var(--text); line-height: 1.8; font-style: italic;
+  }
+  .principle-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; margin-top:16px }
+  .principle-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:18px 20px; display:flex; gap:14px }
+  .principle-card .p-num { font-family:'JetBrains Mono',monospace; color:var(--accent); font-size:20px; font-weight:700; flex-shrink:0 }
+  .principle-card h4 { font-size:15px; margin-bottom:4px; color:var(--text) }
+  .principle-card p { font-size:13px; color:var(--text-soft); margin:0; line-height:1.6 }
+  .principle-card.warn { border-color: rgba(248,113,113,0.3) }
+  .principle-card.warn .p-num { color: var(--danger) }
+
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-top:16px }
+  .kpi-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:18px; position:relative; overflow:hidden }
+  .kpi-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--accent) }
+  .kpi-card .kpi-val { font-size:24px; font-weight:800; color:var(--accent); font-family:'JetBrains Mono',monospace; letter-spacing:-.02em }
+  .kpi-card .kpi-name { font-size:12.5px; color:var(--text-soft); margin-top:4px; line-height:1.5 }
+  .kpi-card .kpi-src { font-size:11px; color:var(--text-dim); margin-top:6px }
+
+  .risk-item { display:grid; grid-template-columns:24px 1fr; gap:14px; padding:14px 0; border-bottom:1px solid var(--border) }
+  .risk-item:last-child { border-bottom:none }
+  .risk-item .risk-num { width:24px; height:24px; border-radius:50%; background:rgba(248,113,113,0.15); color:var(--danger); font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center }
+  .risk-item p { font-size:14px; color:var(--text-soft); line-height:1.7; margin:0 }
+  .risk-item strong { color:var(--text) }
+  .risk-item .hedge { color:var(--accent); font-size:13px }
+
+  .compare-table { width:100%; border-collapse:collapse; margin-top:16px; font-size:13.5px }
+  .compare-table th, .compare-table td { padding:12px 14px; text-align:left; border-bottom:1px solid var(--border); vertical-align:top }
+  .compare-table th { background:var(--surface); font-size:12.5px; font-weight:600; color:var(--text) }
+  .compare-table td:first-child { color:var(--text-soft); font-weight:600; white-space:nowrap }
+  .compare-table .old { color:var(--danger) }
+  .compare-table .new { color:var(--accent) }
+
+  @media (max-width: 640px) {
+    .compare-table { font-size: 12.5px }
+    .compare-table th, .compare-table td { padding: 8px 10px }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr) }
+  }
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<nav class="topnav">
+  <div class="topnav__brand">XIV <span>/ 杜思远</span></div>
+  <div class="topnav__links">
+    <a href="index.html">首页</a>
+    <a href="art.html">美术作品</a>
+    <a href="project1.html">残墟巡界</a>
+    <a href="project2.html">浮岛工坊</a>
+    <a href="project3.html" class="active">AI Agent</a>
+    <a href="contact.html">联系方式</a>
+  </div>
+</nav>
+
+<main class="main main--wide">
+  <div class="page-tag" data-reveal="fade">PROJECT 03 · AIGC AGENT</div>
+  <h1 class="page-title" data-reveal="left">美术创作辅助 Agent</h1>
+  <p class="page-subtitle">一个画师给自己造的 AI 助手 —— 不做底层模型，只把「调提示词、找参考、出氛围草稿、查透视崩坏」这些脏活接进原画生产流程。</p>
+
+  <div class="page-shell">
+    <!-- ========== 侧边栏 ========== -->
+    <aside class="side-rail">
+      <div class="rail-title">目录 / CONTENTS</div>
+      <nav class="rail-nav">
+        <a href="#s1" class="active"><span class="num">01</span>项目速览</a>
+        <a href="#s2"><span class="num">02</span>痛点</a>
+        <a href="#s3"><span class="num">03</span>用户画像</a>
+        <a href="#s4"><span class="num">04</span>目标与边界</a>
+        <a href="#s5"><span class="num">05</span>用户旅程</a>
+        <a href="#s6"><span class="num">06</span>方案设计</a>
+        <a href="#s7"><span class="num">07</span>竞品与差异化</a>
+        <a href="#s8"><span class="num">08</span>功能清单</a>
+        <a href="#s9"><span class="num">09</span>风险与复盘</a>
+        <a href="#s10"><span class="num">10</span>衡量指标</a>
+        <a href="#s11"><span class="num">11</span>原型与素材</a>
+      </nav>
+
+      <div class="rail-panel">
+        <div class="rail-panel__head">
+          <strong>项目档案</strong>
+          <span>PROFILE</span>
+        </div>
+        <dl class="rail-facts">
+          <div><dt>角色</dt><dd>产品设计（独立完成）</dd></div>
+          <div><dt>阶段</dt><dd>PRD v0.1 · 原型验证中</dd></div>
+          <div><dt>平台</dt><dd>桌面端工具 · Agent 工作流</dd></div>
+          <div><dt>交付</dt><dd>PRD / 流程图 / 原型 / 规则库</dd></div>
+        </dl>
+      </div>
+
+      <div class="rail-panel">
+        <div class="rail-panel__head">
+          <strong>关键决策</strong>
+          <span>DECISIONS</span>
+        </div>
+        <ul class="rail-decision">
+          <li><span class="d-no">D1</span>不做底层模型，只做提示词编排与规则校验</li>
+          <li><span class="d-no">D2</span>设两处强制人工卡点，不提供一键定稿</li>
+          <li><span class="d-no">D3</span>校验只作第一层过滤，不承诺产出质量</li>
+          <li><span class="d-no">D4</span>先服务团队场景，放弃个人画师市场</li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- ========== 正文 ========== -->
+    <div class="page-body">
+      <section id="s1" class="section-block">
+        <h2>项目速览</h2>
+        <p>面向「游戏场景原画 / 概念设计师」的 AIGC 辅助 Agent。把参考检索、提示词标准化、氛围草稿批量生成这三件事自动化，并加一层几何规则校验，把明显崩坏的图挡在人眼前之前。</p>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-val">-68%</div>
+            <div class="kpi-name">单张草稿前置耗时<br>100min → 32min</div>
+            <div class="kpi-src">本人实测 · 6 个场景</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val">18%</div>
+            <div class="kpi-name">AI 产出结构性错误占比<br>人工筛图阶段实测</div>
+            <div class="kpi-src">校验前 60% → 校验后 18%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val">12</div>
+            <div class="kpi-name">已沉淀提示词模板<br>废墟 / 国风 / 科幻等</div>
+            <div class="kpi-src">复用频次最高 3 个</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-val">2</div>
+            <div class="kpi-name">强制人工卡点<br>推演 + 定稿</div>
+            <div class="kpi-src">AI 不可直接交付</div>
+          </div>
+        </div>
+        <div class="callout">
+          <h4>◆ 一句话说清它和文生图工具的区别</h4>
+          <p>MJ / SD 是<strong>孤立的出图工具</strong>，你写完提示词，拿到图，流程结束。原画是有流程的：参考 → 草稿 → 空间推演 → 细化 → 落地。这个 Agent 是塞进流程里的<strong>胶水</strong>，负责流程里的脏活，不负责设计决策。</p>
+        </div>
+      </section>
+
+      <section id="s2" class="section-block">
+        <h2>痛点</h2>
+        <p><strong>重复劳动吃掉创作时间。</strong>单张场景氛围稿的前置环节，实测要 100 分钟：试提示词平均 3 轮、每轮 10 分钟出图；翻参考图库找匹配风格约 30 分钟；手动搭空间草稿 40 分钟。其中真正在做设计的部分不到四成。</p>
+        <p><strong>模型幻觉污染设计逻辑。</strong>文生图在场景类题材上高频出错：一点透视灭点飘、地平线不水平、建筑层高与人体比例矛盾、结构承重关系不存在。这类图很好看，但空间逻辑是错的。</p>
+        <p><strong>依赖风险。</strong>图足够好看时，人容易跳过空间推演直接细化，最后交出去的是一张「看起来能看、但走不通」的概念图。我自己踩过这个坑。</p>
+        <div class="quote-block">
+          「能出好看的图，不等于拥有完整的设计链路。AI 最危险的地方不是画得丑，是画得太漂亮，让你不想再想。」
+        </div>
+      </section>
+
+      <section id="s3" class="section-block">
+        <h2>用户画像</h2>
+        <div class="principle-grid">
+          <div class="principle-card">
+            <div class="p-num">核心</div>
+            <div>
+              <h4>游戏场景原画 / 概念设计师</h4>
+              <p>有审美与空间设计能力，会用 MJ / SD / Blender。草稿阶段耗时最长，希望 AI 提速，但害怕 AI 把设计逻辑带跑。要的是「AI 干活、我做决定」。</p>
+            </div>
+          </div>
+          <div class="principle-card">
+            <div class="p-num">次核心</div>
+            <div>
+              <h4>中小团队的美术主美 / 带新人的人</h4>
+              <p>痛点是新人提示词写不稳、参考图散在各人电脑里、同一项目风格跑偏。需要一套能共享、能约束下限的工具，而不是每个人都自己摸索。</p>
+            </div>
+          </div>
+          <div class="principle-card warn">
+            <div class="p-num">非目标</div>
+            <div>
+              <h4>追求「一键出成品」的用户</h4>
+              <p>只想输入一句话拿到可直接交付的图，不接受人工卡点。这类需求与产品定位冲突，不为他们降低人工审核环节。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="s4" class="section-block">
+        <h2>目标与边界</h2>
+        <h3>目标</h3>
+        <p>把草稿阶段的参考检索、提示词调用、批量出图、规则预审四条流水线自动化，让人只保留「推演空间、判断好坏、定稿」这三件真正需要人的事。</p>
+        <h3>边界（明确不做）</h3>
+        <div class="principle-grid">
+          <div class="principle-card">
+            <div class="p-num">01</div>
+            <div><h4>不自主完成空间设计</h4><p>功能分区、动线、世界观逻辑由画师决定，Agent 不生成也不替选。</p></div>
+          </div>
+          <div class="principle-card">
+            <div class="p-num">02</div>
+            <div><h4>不做底层模型研发</h4><p>不训练模型、不微调权重，只做提示词编排、规则校验与流程集成。</p></div>
+          </div>
+          <div class="principle-card">
+            <div class="p-num">03</div>
+            <div><h4>AI 产物不进定稿</h4><p>所有生成物只作为初稿参考，必须经人工审核修改才能进入交付链路。</p></div>
+          </div>
+          <div class="principle-card">
+            <div class="p-num">04</div>
+            <div><h4>不服务独立个人画师</h4><p>优先服务有标准流程的团队场景 —— 共享模板、统一风格下限、新人可快速上手。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="s5" class="section-block">
+        <h2>用户旅程</h2>
+        <div class="loop-card">
+          <div class="loop-flow">
+            <div class="loop-node">构思方案</div>
+            <div class="loop-arrow">→</div>
+            <div class="loop-node">Agent 检索参考</div>
+            <div class="loop-arrow">→</div>
+            <div class="loop-node">调模板批量出草稿</div>
+            <div class="loop-arrow">→</div>
+            <div class="loop-node">规则校验筛崩坏图</div>
+            <div class="loop-arrow">→</div>
+            <div class="loop-node highlight">画师推演空间</div>
+            <div class="loop-arrow">→</div>
+            <div class="loop-node">Blender 验证 + 定稿</div>
+          </div>
+          <p style="font-size:13.5px;color:var(--text-soft);margin:0;line-height:1.7">绿色节点是整条流程的价值核心，也是唯一不可被 Agent 接管的一步。前面四步都是为它省时间，不是替它做决定。</p>
+        </div>
+        <h3>实测耗时对比</h3>
+        <table class="compare-table">
+          <thead>
+            <tr><th>环节</th><th>原流程</th><th>用 Agent 后</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>提示词试错</td><td class="old">3 轮 × 10min ≈ 30min</td><td class="new">选模板 ≈ 2min</td></tr>
+            <tr><td>找参考图</td><td class="old">≈ 30min</td><td class="new">自动关联 ≈ 1min</td></tr>
+            <tr><td>氛围草稿</td><td class="old">手动搭 ≈ 40min</td><td class="new">批量生成 ≈ 6min</td></tr>
+            <tr><td>规则预审</td><td class="old">肉眼逐张查 ≈ 0</td><td class="new">自动标记 ≈ 3min</td></tr>
+            <tr><td>空间推演 + 定稿</td><td class="old">≈ 40min</td><td class="row-hl">≈ 20min（不压缩，保留）</td></tr>
+            <tr><td><strong>合计</strong></td><td class="old"><strong>≈ 100min</strong></td><td class="new"><strong>≈ 32min</strong></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="s6" class="section-block">
+        <h2>方案设计</h2>
+        <p>整套 Agent 由三块拼成，缺一块就不成立。</p>
+        <div class="principle-grid">
+          <div class="principle-card">
+            <div class="p-num">A</div>
+            <div><h4>风格提示词模板库</h4><p>把视角、风格、禁止项、几何约束拆成结构化字段，按项目/题材分类沉淀。新人复用老手写好的模板，风格下限被兜住。规则样本与输出结构见文末附录。</p></div>
+          </div>
+          <div class="principle-card">
+            <div class="p-num">B</div>
+            <div><h4>美术规范校验规则</h4><p>提前录入场景透视、工业结构等约束（如地平线必须水平、一点透视灭点偏移 ≤5°、拱券矢高与跨度关系），对生成图做第一层过滤。</p></div>
+          </div>
+          <div class="principle-card">
+            <div class="p-num">C</div>
+            <div><h4>素材参考库</h4><p>按项目归档参考图与往期成稿，Agent 生成前自动匹配同题材素材，减少「翻图 30 分钟」和风格漂移。</p></div>
+          </div>
+        </div>
+        <div class="callout">
+          <h4>◆ 为什么校验只能当第一层</h4>
+          <p>规则能拦住<strong>可量化的几何错误</strong>，拦不住<strong>「结构自洽但不符合世界观」</strong>的问题。所以校验的价值是把 60% 的明显崩坏挡掉，把人的注意力留给剩下 40% 需要判断的部分 —— 不是替代人。</p>
+        </div>
+      </section>
+
+      <section id="s7" class="section-block">
+        <h2>竞品与差异化</h2>
+        <p>市面上的 AIGC 美术方案大致三类：通用文生图工具、传统人工管线、以及「AI 出图 + 一键成片」类插件。逐一对照后，本产品的差异化落在两点 —— 流程嵌入，以及人机权责清晰。</p>
+        <table class="compare-table">
+          <thead>
+            <tr><th>维度</th><th>通用文生图（MJ / SD）</th><th>传统人工管线</th><th>本 Agent</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>参考检索</td><td>人工翻图</td><td>人工翻图</td><td class="new">按项目自动关联素材库</td></tr>
+            <tr><td>提示词</td><td>每次重写</td><td>不存在该环节</td><td class="new">模板化，团队复用</td></tr>
+            <tr><td>草稿产出</td><td>单张精修为主</td><td>人工逐张搭</td><td class="new">批量 4–8 张，保留多样性</td></tr>
+            <tr><td>几何校验</td><td>无</td><td>肉眼逐张查</td><td class="new">规则预筛 + 人工复核</td></tr>
+            <tr><td>设计决策</td><td>交给模型，易跑偏</td><td>由画师主导</td><td class="new">由画师主导，Agent 不介入</td></tr>
+            <tr><td>误用风险</td><td>高：好看但结构不成立</td><td>低：只是慢</td><td class="new">可控：卡点设计兜底</td></tr>
+          </tbody>
+        </table>
+        <div class="callout">
+          <h4>◆ 差异化一句话</h4>
+          <p>通用工具解决「怎么快速出图」，本产品解决「怎么让 AI 参与原画流程、又不夺走设计决策权」。前者的壁垒是模型能力，后者的壁垒是对生产管线与人机协作边界的理解 —— 这恰好是我作为原画师能提供、纯技术团队给不了的部分。</p>
+        </div>
+        <h3>主动放弃的路线</h3>
+        <p>不做「一键成片 / 一键定稿」。这类功能看起来加分，但会让产品退化成通用文生图工具的替代品，同时放大依赖风险。放弃这部分需求是产品取舍，不是能力缺失。</p>
+      </section>
+
+      <section id="s8" class="section-block">
+        <h2>功能清单（PRD 简化版）</h2>
+        <p>只写画师看得见、用得上的前端功能，底层调度与模型调用不在本文档范围。</p>
+        <table class="pm-table">
+          <thead>
+            <tr><th style="width:22%">功能</th><th style="width:40%">画师看到什么</th><th>为什么需要</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>风格模板管理</td><td>新增 / 保存 / 复用场景提示词方案，按题材分类</td><td>把「写咒语」变成「选模板」，同时统一团队风格下限</td></tr>
+            <tr><td>批量草稿生成</td><td>输入一句需求，一次输出多版氛围草图</td><td>草稿阶段要的是多样性，不是单张精修</td></tr>
+            <tr><td>素材库关联</td><td>生成前自动调取项目对应参考素材</td><td>干掉「翻图找参考」这 30 分钟</td></tr>
+            <tr><td>产出预审</td><td>自动识别透视、结构错误并打标预警</td><td>第一层过滤，把崩坏图挡在人眼前之前</td></tr>
+            <tr><td>版本留存</td><td>保存每一轮 AI 草稿，可对比迭代</td><td>草稿演进过程本身是设计依据，不能丢</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="s9" class="section-block">
+        <h2>风险与复盘</h2>
+        <div class="risk-item">
+          <div class="risk-num">1</div>
+          <p><strong>AI 仍会编造不合理结构，规则校验无法 100% 拦截幻觉。</strong><br>
+          <span class="hedge">对策：</span>校验定位为第一层过滤而非质量承诺；流程层强制保留人工审核节点，AI 产物不可直接进入定稿。</p>
+        </div>
+        <div class="risk-item">
+          <div class="risk-num">2</div>
+          <p><strong>使用者过度依赖生成结果，放弃独立设计思考。</strong><br>
+          <span class="hedge">对策：</span>产品文案与引导里明确「草稿助手」定位；界面不提供「一键定稿」入口，从产品结构上拒绝替代设计。</p>
+        </div>
+        <div class="risk-item">
+          <div class="risk-num">3</div>
+          <p><strong>规则库维护成本高，容易过期。</strong><br>
+          <span class="hedge">对策：</span>规则按项目独立配置、版本化存放，先只录高频错误（透视、地平线、比例），不做全量结构校验。</p>
+        </div>
+        <h3>复盘</h3>
+        <div class="quote-block">
+          Agent 能显著压缩初稿阶段的时间，但场景原画最核心的价值始终是空间逻辑与世界观推导 —— 这部分工具替代不了。我自己也踩过这个坑：拿着 AI 出的漂亮图直接细化，最后被策划一句「这里进不去人」打回重画。所以这个项目的边界写得比功能更狠。
+        </div>
+      </section>
+
+      <section id="s10" class="section-block">
+        <h2>衡量指标</h2>
+        <table class="pm-table">
+          <thead>
+            <tr><th style="width:36%">指标</th><th style="width:20%">目标</th><th>口径</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>草稿阶段耗时下降比例</td><td class="row-hl">≥ 50%</td><td>单张氛围稿从构思到可选初稿的耗时，前后对比</td></tr>
+            <tr><td>结构透视不合格占比</td><td class="row-hl">≤ 20%</td><td>人工筛图时判定为透视/结构崩坏的图，占生成总量</td></tr>
+            <tr><td>模板复用频次</td><td>≥ 3 次 / 模板 / 项目</td><td>统计模板被调用次数，低于 3 次的模板下线</td></tr>
+            <tr><td>人工返工轮次</td><td>≤ 2 轮</td><td>从初稿到通过主美审核的修改轮次</td></tr>
+            <tr><td>推演环节耗时</td><td>不压缩</td><td>作为反向指标监控 —— 显著下降说明人在偷懒</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:13px;color:var(--text-dim);margin-top:10px">最后一条是故意设的反向指标：如果空间推演时间也一起下降，说明 AI 真的在替代思考，而不是节省劳动。</p>
+      </section>
+
+      <section id="s11" class="section-block">
+        <h2>原型与素材</h2>
+        <div class="proto-grid">
+          <div class="proto-card">
+            <div class="proto-icon">◇</div>
+            <h4>Agent 工作流框图</h4>
+            <p>选模板 → 拉参考 → 批量生成 → 规则校验 → 人工推演 → 定稿，含两个强制卡点</p>
+          </div>
+          <div class="proto-card">
+            <div class="proto-icon">◇</div>
+            <h4>提示词模板 SOP</h4>
+            <p>模板字段结构截图 + 12 套已沉淀模板（废墟 / 国风 / 科幻 / 峡湾）</p>
+          </div>
+          <div class="proto-card">
+            <div class="proto-icon">◇</div>
+            <h4>AI 初稿 vs 最终稿</h4>
+            <p>同题材两版对比：左侧 AI 草稿透视偏移，右侧人工推演 + Blender 验证后的定稿</p>
+          </div>
+          <div class="proto-card">
+            <div class="proto-icon">◇</div>
+            <h4>Blender 过程稿</h4>
+            <p>白模阶段 / 相机对齐 / 透视线框，用于证明设计链路可落地</p>
+          </div>
+        </div>
+        <div class="callout">
+          <h4>◆ 和前两个项目的关系</h4>
+          <p>做<strong>《残墟巡界》</strong>时没人做这个工具，只能人工硬扛 30 张废墟草稿；沉淀下来的废墟提示词，后来成了这个 Agent 的首批模板。它既是独立产品，也是我自己项目的美术生产工具 —— <a href="project1.html" style="color:var(--accent);text-decoration:underline">先做游戏，再给自己的游戏做工具</a>。</p>
+        </div>
+
+        <h3>附录 · Prompt 模块规格 v0.2.0-rc.2</h3>
+        <p>项目里的「风格提示词模板库」不是一句概念。我按版本号维护了一套可执行的提示词规格，当前版本 v0.2.0-rc.2 —— 把「随手写咒语」拆成可检查、可交付的结构，它是模板库的规则样本。</p>
+        <table class="pm-table">
+          <thead>
+            <tr><th style="width:26%">规格项</th><th>定义</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>输入范围</td><td>一段无人的场景文字描述，语言不限；只接受文字，不做图生图反推</td></tr>
+            <tr><td>核心检查</td><td>视觉层级、空间秩序、光照一致性、信息取舍四项 —— 用于组织已有信息，不新增设计</td></tr>
+            <tr><td>交付结构</td><td>短标题 → 场景方向 → 设计说明 → 一段可直接复制的英文提示词</td></tr>
+            <tr><td>明确不做</td><td>角色设计、既有概念诊断、多方案发散、参数配置、承诺出图结果</td></tr>
+            <tr><td>版本管理</td><td>按 0.x 迭代，规则调整保留版本记录，便于回滚与团队对齐</td></tr>
+          </tbody>
+        </table>
+        <p>对应到 PRD：<strong>风格模板管理</strong>落地为固定的四段交付结构，<strong>产出预审</strong>落地为四项检查，<strong>素材库关联</strong>落地为输入范围约束。先有规格，再谈模板 —— 否则模板只是散落各处的提示词。</p>
+        <div class="callout">
+          <h4>◆ 为什么先做规格，而不是先攒模板</h4>
+          <p>模板会随模型迭代过期，规格不会。规则一旦写清楚，新人按规格写出的下限就可控；等模型换代，只替换规格里的参数层，模板库跟着重生成，而不是一张张手工返修。</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<div class="pager">
+  <a href="project2.html" class="pager__btn">← 浮岛工坊</a>
+  <div class="pager__indicator"><span class="current">5</span> / 6 · AI Agent</div>
+  <a href="contact.html" class="pager__btn">联系方式 →</a>
+</div>
+
+<footer class="footer">
+  <p>© 2026 杜思远 · XIV · 游戏场景原画设计师 / AIGC 产品设计</p>
+</footer>
+<script src="animations.js"></script>
+<script src="background.js"></script>
+</body>
+</html>

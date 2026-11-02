@@ -120,6 +120,40 @@
   }
 
   /* ========================
+     6. Side Rail Scroll Spy
+     ======================== */
+  function initSideRail() {
+    var nav = document.querySelector('.rail-nav');
+    if (!nav) return;
+    var links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+    var sections = links.map(function (a) {
+      return document.querySelector(a.getAttribute('href'));
+    }).filter(Boolean);
+    if (!sections.length) return;
+
+    function setActive(id) {
+      links.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) { setActive(sections[0].id); return; }
+
+    var visible = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        visible[entry.target.id] = entry.isIntersecting;
+      });
+      for (var i = 0; i < sections.length; i++) {
+        if (visible[sections[i].id]) { setActive(sections[i].id); return; }
+      }
+    }, { rootMargin: '-90px 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { io.observe(s); });
+    setActive(sections[0].id);
+  }
+
+  /* ========================
      Boot
      ======================== */
   function boot() {
@@ -128,6 +162,7 @@
     initTableStagger();
     initReveal();
     initSvgDraw();
+    initSideRail();
   }
 
   if (document.readyState === 'loading') {
