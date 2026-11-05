@@ -1,7 +1,4 @@
-node_modules/
-.env.local
-.env
-.vercel/
-*.log
-.DS_Store
-tools/
+﻿backup-*/
+.trae/
+*.pdf
+!public/作品集-杜思远-游戏原画.pdf

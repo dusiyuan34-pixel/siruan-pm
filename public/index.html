@@ -1,34 +1,77 @@
-﻿<!DOCTYPE html>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html lang="zh-CN" data-type="software" data-kind="gaming" data-radius="soft" data-buttons="solid">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>杜思远 | 游戏产品经理作品集</title>
+<meta name="page-type" content="software">
+<meta name="site-kind" content="gaming">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<style>
+:root {
+  --p-bg: #18191b; --p-surface: #222427; --p-ink: #eff0f1; --p-muted: #9c9ea3;
+  --p-accent: #ff4a1f; --p-accent-ink: #18191b; --p-action: #ff4a1f; --p-action-ink: #18191b;
+  --p-inv-bg: #eff0f1; --p-inv-surface: #dedfe0; --p-inv-ink: #18191b; --p-inv-muted: #5b5c5e;
+  --font-display: "Manrope", system-ui, sans-serif;
+  --font-text: "Manrope", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+</style>
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
+
 <nav class="topnav">
   <div class="topnav__brand">XIV <span>/ 杜思远</span></div>
   <div class="topnav__links">
     <a href="index.html" class="active">首页</a>
-    <a href="art.html">美术作品</a>
     <a href="project1.html">残墟巡界</a>
     <a href="project2.html">浮岛工坊</a>
     <a href="project3.html">AI Agent</a>
+    <a href="art.html">美术作品</a>
     <a href="contact.html">联系方式</a>
   </div>
 </nav>
 
 <main class="main">
-  <section class="hero">
-    <div class="hero__eyebrow">GAME PRODUCT MANAGER · AIGC PRODUCT DESIGN</div>
-    <h1 class="hero__title">你好，我是 <span class="accent">杜思远</span></h1>
-    <p class="hero__pos">游戏产品经理｜美术出身的 <strong>AIGC 产品设计</strong>，熟悉 Blender 3D 美术生产管线</p>
-    <div class="hero__intro">
-      广东工业大学环境艺术设计在读，专业排名前 5%。两条线并行：一条是场景概念设计——从世界观出发构建氛围，草图、原画到 Blender 建模渲染，具备 2D → 3D 全链路落地能力；另一条是面向画师的 AIGC 产品设计——因为自己天天在调提示词、找参考、查透视崩坏，所以把这些脏活做成了 Agent。写实、二次元、国风均有完整项目实践。
+  <!-- HERO: one screen, film frame, plain copy -->
+  <section class="hero hero--film">
+    <div class="hero__frame">
+      <div class="hero__visual">
+        <!-- 美术 key art placeholder, swap for real world file -->
+        <div class="hero__visual-inner" style="background:
+          linear-gradient(135deg, rgba(24,25,27,0.3) 0%, rgba(24,25,27,0.7) 100%),
+          url('works/scene-priority-01.jpg') center/cover no-repeat;"></div>
+      </div>
+      <div class="hero__words">
+        <div class="hero__eyebrow">GAME PRODUCT MANAGER · AIGC PRODUCT DESIGN</div>
+        <h1 class="hero__title">游戏产品经理 & 场景概念设计师</h1>
+        <p class="hero__lead">3 个游戏产品项目 + 1 个 AIGC 原画 Agent。广工环境艺术设计，专业前 5%。</p>
+        <p class="hero__pos">两条线并行：做能定义游戏的 PRD，也做让画师产能翻倍的工具——因为自己天天在调提示词、查透视崩坏。</p>
+        <div class="hero__facts">
+          <span class="fact">草稿耗时 <strong>-68%</strong></span>
+          <span class="fact">Steam 销量 <strong>三档推演</strong></span>
+          <span class="fact">Blender / PS / MJ <strong>全链路</strong></span>
+        </div>
+        <div class="hero__cta">
+          <a href="#projects" class="btn btn--primary">查看产品项目</a>
+          <a href="contact.html" class="btn btn--ghost">联系我</a>
+        </div>
+      </div>
     </div>
-    <div class="skills">
+  </section>
+
+  <!-- ABOUT: plain copy, one block -->
+  <section class="about" id="about">
+    <div class="about__head">
+      <div class="hero__eyebrow">ABOUT</div>
+      <h2 class="about__title">个人简介</h2>
+    </div>
+    <p class="about__intro">广东工业大学环境艺术设计在读，专业排名前 5%。两条线并行：一条是场景概念设计——从世界观出发构建氛围，草图、原画到 Blender 建模渲染，具备 2D → 3D 全链路落地能力；另一条是面向画师的 AIGC 产品设计——因为自己天天在调提示词、找参考、查透视崩坏，所以把这些脏活做成了 Agent。写实、二次元、国风均有完整项目实践。</p>
+    <div class="skills about__skills">
       <span>场景原画</span>
       <span>氛围图</span>
       <span>概念设定</span>
@@ -41,65 +84,58 @@
     </div>
   </section>
 
-  <!-- 产品项目 -->
-  <section class="project-preview" data-reveal>
+  <!-- PROJECTS: one screen, three cards with hover lift -->
+  <section class="projects" id="projects">
     <div class="preview-header">
       <h2 class="preview-title">产品项目</h2>
       <p class="preview-sub">三个项目串成一条线：能做游戏，也能做让美术产能翻倍的工具</p>
     </div>
     <div class="proj-grid">
-      <a href="project1.html" class="proj-card" data-reveal-delay>
-        <div class="proj-card__head">
-          <div class="proj-card__no">PROJECT 01</div>
-          <h3 class="proj-card__name">《残墟巡界》</h3>
-          <div class="proj-card__type">PC · 买断制 · 场景叙事</div>
-        </div>
-        <div class="proj-card__body">
-          <p class="proj-card__desc">末世废墟探索游戏。设计五原则一票否决、Steam 销量三档情景推演、Go/No-Go 里程碑，完整 PRD 可下载。</p>
-          <div class="proj-card__meta"><span>PRD</span><span>商业推演</span><span>范围控制</span></div>
-        </div>
+      <a href="project1.html" class="proj-card">
+        <div class="proj-card__no">PROJECT 01</div>
+        <h3 class="proj-card__name">《残墟巡界》</h3>
+        <div class="proj-card__type">PC · 买断制 · 场景叙事</div>
+        <p class="proj-card__desc">末世废墟探索游戏。五原则一票否决 + Steam 销量三档推演 + Go/No-Go 里程碑。</p>
+        <div class="proj-card__tags"><span>PRD</span><span>商业推演</span><span>范围控制</span></div>
       </a>
 
-      <a href="project2.html" class="proj-card" data-reveal-delay>
-        <div class="proj-card__head">
-          <div class="proj-card__no">PROJECT 02</div>
-          <h3 class="proj-card__name">《浮岛工坊》</h3>
-          <div class="proj-card__type">移动端 · F2P · 长线运营</div>
-        </div>
-        <div class="proj-card__body">
-          <p class="proj-card__desc">浮空岛建造与生活模拟。核心指标从销量切到留存与 LTV，明确反目标用户，不做公会、排行榜、每日打卡。</p>
-          <div class="proj-card__meta"><span>留存模型</span><span>外观内购</span><span>版本验证</span></div>
-        </div>
+      <a href="project2.html" class="proj-card">
+        <div class="proj-card__no">PROJECT 02</div>
+        <h3 class="proj-card__name">《浮岛工坊》</h3>
+        <div class="proj-card__type">移动端 · F2P · 长线运营</div>
+        <p class="proj-card__desc">浮空岛建造与生活模拟。反目标用户明确：不做公会、排行榜、每日打卡。</p>
+        <div class="proj-card__tags"><span>留存模型</span><span>外观内购</span><span>版本验证</span></div>
       </a>
 
-      <a href="project3.html" class="proj-card" data-reveal-delay>
-        <div class="proj-card__head">
-          <div class="proj-card__no">PROJECT 03</div>
-          <h3 class="proj-card__name">美术创作辅助 Agent</h3>
-          <div class="proj-card__type">AIGC · 原画生产工具</div>
-        </div>
-        <div class="proj-card__body">
-          <p class="proj-card__desc">把参考检索、提示词模板、批量草稿、透视校验接进原画流程，实测草稿耗时 -68%，并强制保留两个人工卡点。</p>
-          <div class="proj-card__meta"><span>Agent 工作流</span><span>竞品分析</span><span>规则校验</span></div>
-        </div>
+      <a href="project3.html" class="proj-card proj-card--accent">
+        <div class="proj-card__no">PROJECT 03</div>
+        <h3 class="proj-card__name">美术创作辅助 Agent</h3>
+        <div class="proj-card__type">AIGC · 原画生产工具</div>
+        <p class="proj-card__desc">参考检索 + 提示词模板 + 批量草稿 + 透视校验。实测草稿耗时 -68%。</p>
+        <div class="proj-card__tags"><span>Agent 工作流</span><span>竞品分析</span><span>规则校验</span></div>
       </a>
     </div>
   </section>
 
-  <div style="text-align:center;margin-top:40px">
-    <a href="art.html" class="btn btn--primary">查看完整作品集 →</a>
-    <a href="project3.html" class="btn btn--ghost" style="margin-left:12px">AI Agent 项目</a>
-  </div>
+  <!-- CLOSE: type moment + one clear action -->
+  <section class="close">
+    <h2 class="close__title">完整作品集与简历</h2>
+    <p class="close__sub">美术作品 53 页 PDF + 游戏产品 PRD 下载 + 联系方式</p>
+    <div class="close__cta">
+      <a href="art.html" class="btn btn--primary">查看美术作品</a>
+      <a href="contact.html" class="btn btn--ghost">简历下载</a>
+    </div>
+  </section>
 </main>
 
 <div class="pager">
   <button class="pager__btn" disabled>← 首页</button>
   <div class="pager__indicator"><span class="current">1</span> / 6 · 首页</div>
-  <a href="art.html" class="pager__btn">美术作品 →</a>
+  <a href="project1.html" class="pager__btn">残墟巡界 →</a>
 </div>
 
 <footer class="footer">
-  <p>© 2026 杜思远 · XIV · 游戏场景原画设计师</p>
+  <p>© 2026 杜思远 · XIV · 游戏产品经理</p>
 </footer>
 <script src="animations.js"></script>
 <script src="background.js"></script>
